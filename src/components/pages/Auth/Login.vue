@@ -67,7 +67,8 @@
         components: { Icon, SsfFormGroup, Auth },
         data() {
             return {
-                user: { email: 'sofiane.akbly@gmail.com', password: 'toto', remember: false }
+//                user: { email: 'sofiane.akbly@gmail.com', password: 'toto', remember: false },
+		user: { email: null, password: null, remember: false },
             }
         },
 

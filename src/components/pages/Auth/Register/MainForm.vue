@@ -59,14 +59,14 @@
             },
 
             resetUser() {
-                this.user = {
-                    firstname       : 'Sofiane',
-                    lastname        : 'Akbly',
-                    email           : 'sofiane.akbly@gmail.com',
-                    password        : 'toto',
-                    confirm_password: 'toto',
-                }
-                // this.user = { firstname: null, lastname: null, email: null, password: null, confirm_password: null }
+//                this.user = {
+//                    firstname       : 'Sofiane',
+//                    lastname        : 'Akbly',
+//                    email           : 'sofiane.akbly@gmail.com',
+//                    password        : 'toto',
+//                    confirm_password: 'toto',
+//                }
+                this.user = { firstname: null, lastname: null, email: null, password: null, confirm_password: null }
             },
 
             resetErrors() {
