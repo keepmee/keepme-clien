@@ -1,0 +1,81 @@
+.color-1,
+.btn.bg-color-1:hover {
+  color: #EBC8B2 !important;
+}
+
+.border-color-1,
+.btn.border-color-1 {
+  border-color: #EBC8B2 !important;
+}
+
+.bg-color-1 {
+  background-color: #EBC8B2 !important;
+}
+
+.color-2,
+.btn.bg-color-2:hover {
+  color: #110c11 !important;
+}
+
+.border-color-2,
+.btn.border-color-2 {
+  border-color: #110c11 !important;
+}
+
+.bg-color-2 {
+  background-color: #110c11 !important;
+}
+
+.color-3,
+.btn.bg-color-3:hover {
+  color: #CBCADE !important;
+}
+
+.border-color-3,
+.btn.border-color-3 {
+  border-color: #CBCADE !important;
+}
+
+.bg-color-3 {
+  background-color: #CBCADE !important;
+}
+
+.color-4,
+.btn.bg-color-4:hover {
+  color: #fffbf9 !important;
+}
+
+.border-color-4,
+.btn.border-color-4 {
+  border-color: #fffbf9 !important;
+}
+
+.bg-color-4 {
+  background-color: #fffbf9 !important;
+}
+
+.btn[class*="-color-"] {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.btn[class*="border-color-"]:hover {
+  background-color: #000 !important;
+  border-color: #000 !important;
+  color: #fff !important;
+}
+
+.btn[class*="bg-color-"]:hover {
+  background-color: #fff !important;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+
+
+
+
+
+

@@ -1,0 +1,159 @@
+* {
+  box-sizing: border-box;
+}
+
+.vue-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 50px;
+  -webkit-transition: width .5s;
+  -moz-transition: width .5s;
+  -ms-transition: width .5s;
+  -o-transition: width .5s;
+  transition: width .5s;
+  background-color: #EDDBCD;
+  font-family: "Poppins", sans-serif;
+}
+
+.vue-sidebar.open {
+  width: 250px;
+}
+
+.vue-sidebar .vue-sidebar-list .vue-sidebar-item {
+  position: relative;
+}
+
+.vue-sidebar .vue-sidebar-list .vue-sidebar-item .vue-sidebar-link {
+  position: relative;
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 10px;
+  line-height: 30px;
+  text-decoration: none;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+  color: inherit;
+}
+
+.vue-sidebar .vue-sidebar-list .vue-sidebar-item.active-item .vue-sidebar-link {
+  -webkit-box-shadow: inset 3px 0 0 0 #212529;
+  box-shadow: inset 3px 0 0 0 #212529;
+}
+
+.vue-sidebar .vue-sidebar-list .vue-sidebar-item.active-item .vue-sidebar-link {
+  background-color: #212529;
+  color: #fff;
+}
+
+.vue-sidebar .vue-sidebar-list .vue-sidebar-item:hover .vue-sidebar-link:not(.vue-dropdown-item) {
+  background-color: #fff;
+}
+
+.vue-sidebar .vue-sidebar-list .vue-sidebar-item .vue-sidebar-link.vue-dropdown-item:hover {
+  background-color: #000;
+  color: #EDDBCD;
+}
+
+.vue-sidebar .vue-sidebar-icon {
+  width: 30px;
+  text-align: center;
+}
+
+.vue-sidebar .vue-sidebar-toggle {
+  height: 30px;
+  width: 50px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto 30px auto;
+}
+
+.vue-sidebar .vue-sidebar-link.vue-sidebar-dropdown {
+  position: relative;
+}
+
+.vue-sidebar .vue-sidebar-link.vue-sidebar-dropdown .vue-dropdown-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 20px;
+  width: 20px;
+  margin: auto;
+}
+
+.vue-sidebar .vue-sidebar-link.vue-sidebar-dropdown .vue-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: #fff;
+  -webkit-transition: height .3s;
+  -moz-transition: height .3s;
+  -ms-transition: height .3s;
+  -o-transition: height .3s;
+  transition: height .3s;
+  z-index: 1;
+}
+
+.vue-sidebar .vue-sidebar-link.vue-sidebar-dropdown .vue-dropdown-menu:not(.open) {
+  height: 0 !important;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+.pl-0 {
+  padding-left: 0;
+}
+
+.vue-dropdown-menu ul li,
+.vue-dropdown-menu ul li a {
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -ms-flex-wrap: wrap !important;
+  flex-wrap: wrap !important;
+  width: 100% !important;
+}
+
+.vue-sidebar .vue-sidebar-link.vue-sidebar-dropdown .vue-dropdown-menu ul {
+  display: none;
+}
+
+.vue-sidebar .vue-sidebar-link.vue-sidebar-dropdown .vue-dropdown-menu.open ul {
+  display: block;
+}
+
+.w-15 {
+  position: relative;
+  min-height: 1px;
+  padding-left: 8px;
+  -ms-flex: 0 0 15%;
+  flex: 0 0 15%;
+  max-width: 15%;
+}
+
+.w-85 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  -ms-flex: 0 0 85%;
+  flex: 0 0 85%;
+  max-width: 85%;
+}
+
+.fa-1x5 {
+  font-size: 1.5em;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
