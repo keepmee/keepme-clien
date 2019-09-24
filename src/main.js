@@ -3,6 +3,7 @@
 import Vue           from 'vue'
 import Vue2Filters   from 'vue2-filters'
 import VueWebStorage from 'vue-web-storage'
+import VueMeta       from 'vue-meta'
 
 import VueModal            from 'vue-js-modal'
 import VueCarousel3d       from 'vue-carousel-3d'
@@ -29,6 +30,7 @@ Vue.use(VueCarousel3d);
 Vue.use(VueBrowserGeolocation);
 Vue.use(VueTextareaAutosize);
 Vue.use(VueWebStorage, { prefix: store.getters.storage.prefix });
+Vue.use(VueMeta);
 
 
 Vue.use(VueGoogleMaps, {
