@@ -6,9 +6,15 @@ html, body {
 body {
   font-family: "Poppins", sans-serif !important;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 12px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media screen and (max-width: 767px) {
+  body {
+    font-size: 10px !important;
+  }
 }
 
 .sanchez {
@@ -97,7 +103,7 @@ body {
 
 .ssf-form-group label {
   position: absolute;
-  font-size: 13px !important;
+  font-size: 11px !important;
   margin: auto !important;
   top: 0;
   left: 0;
@@ -241,6 +247,16 @@ input:-webkit-autofill:active {
 
 .fa-1x5 {
   font-size: 1.5em !important;
+}
+
+.full-absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
 }
 
 

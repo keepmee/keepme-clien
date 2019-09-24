@@ -18,8 +18,10 @@
 
         <div class="row">
           <div :class="classes.iconContainer"><i class="fal fa-calendar-alt mr-2"></i>Dates</div>
-          <div :class="classes.contentContainer">{{ getDates(koop.start, koop.end) }} <span
-            class="grey-text small font-italic">({{ koop.duration }})</span></div>
+          <div :class="classes.contentContainer">
+            <span v-html="getDates(koop.start, koop.end)"></span><br/>
+            <span class="grey-text small font-italic">({{ koop.duration }})</span>
+          </div>
         </div>
 
         <div class="row">
@@ -49,7 +51,11 @@
         <div class="row">
           <div :class="classes.iconContainer"><i class="fal fa-map-marked-alt mr-2"></i>Adresse</div>
           <div :class="classes.contentContainer">
-            <span class="col-12">{{ koop.address ? `${koop.address.city} (${koop.address.postcode})` : '' }}</span><br>
+            <span class="col-12">
+              <a :href="`https://www.google.com/maps/place/${koop.address.city}`" target="_blank">
+                {{ koop.address ? `${koop.address.city} (${koop.address.postcode})` : '' }}
+              </a>
+            </span><br>
             <span class="col-12 small font-italic color-3">(l'adresse exacte vous sera communiqué si la garde vous revient)</span>
           </div>
         </div>
@@ -60,7 +66,6 @@
         </div>
 
       </div>
-
     </div>
 
     <div class="vue-modal-footer pb-4">
@@ -130,7 +135,7 @@
                 end = this.helpers.moment(end)
                 return start.format('L') === end.format('L')
                     ? `Le ${start.format('L')} de ${start.format('LTS')} à ${end.format('LTS')}`
-                    : `Du ${start.format('DD-MM-YYYY à LTS')} au ${end.format('DD-MM-YYYY à LTS')}`
+                    : `${start.format('DD MMMM YYYY à LTS')}<br><i class="fal fa-long-arrow-down"></i><br>${end.format('DD MMMM YYYY à LTS')}`
             },
 
             cancel() {
