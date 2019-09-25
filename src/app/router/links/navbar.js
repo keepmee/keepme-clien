@@ -26,9 +26,10 @@ export default [
     children: [
       { title: 'Paramètres', icon: 'fa fa-cog', name: routes.settings.index, routes: Object.values(routes.settings) },
       { title: 'Voir le profil', icon: 'fa fa-eye', name: routes.profile.index },
-      { title: 'Messagerie', icon: 'fa fa-sign-out', name: routes.logout },
+      // { title: 'Messagerie', icon: 'fa fa-sign-out', name: routes.logout },
       { title: 'Déconnexion', icon: 'fa fa-sign-out', name: routes.logout }
     ],
     routes  : routes.account
-  }
+  },
+  { title: 'Notifications', icon: 'far fa-bells', action: 'toggleNotifications' },
 ];
