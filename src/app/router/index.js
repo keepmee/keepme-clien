@@ -14,6 +14,7 @@ import Middleware from '../middleware'
 
 import HomeIndex                    from '../../components/pages/Home/Index'
 import KoopsIndex                   from '../../components/pages/Koops/Index'
+import KoopsShow                    from '../../components/pages/Koops/Show'
 import AccountSettingsIndex         from '../../components/pages/Account/Settings/Index'
 import AccountSettingsChildrenIndex from '../../components/pages/Account/Settings/pages/Children/Index'
 import AccountSettingsIdentityIndex from '../../components/pages/Account/Settings/pages/Identity/Index'
@@ -21,7 +22,8 @@ import AccountSettingsAddressIndex  from '../../components/pages/Account/Setting
 import AccountSettingsPasswordIndex from '../../components/pages/Account/Settings/pages/Password/Index'
 import AccountProfileIndex          from '../../components/pages/Account/Profile/Index'
 import AccountProfileNotifications  from '../../components/pages/Account/Profile/Notifications'
-import AccountSettingsDiplomasIndex         from '../../components/pages/Account/Settings/pages/Diplomas/Index'
+import AccountSettingsDiplomasIndex from '../../components/pages/Account/Settings/pages/Diplomas/Index'
+import ProfileIndex                 from '../../components/pages/Profile/Index'
 
 import Login          from '../../components/pages/Auth/Login'
 import Register       from '../../components/pages/Auth/Register/Index'
@@ -37,6 +39,7 @@ Route.group({ beforeEnter: Middleware.Auth }, () => {
 
   /* Page d'accueil connecté */
   Route.view('/koops', KoopsIndex).name('koops.index')
+  Route.view('/koops/show/:name/:id', KoopsShow).name('koops.show')
 
   /**
    * Pages de gestion du compte
@@ -50,9 +53,9 @@ Route.group({ beforeEnter: Middleware.Auth }, () => {
   Route.view('/account/settings/diplomas', AccountSettingsDiplomasIndex).name('account.settings.diplomas.index')
 
   Route.view('/account/profile', AccountProfileIndex).name('account.profile.index')
-  Route.view('/account/profile/notifications', AccountProfileNotifications).name('account.profile.notifications')
+  // Route.view('/account/profile/notifications', AccountProfileNotifications).name('account.profile.notifications')
 
-
+  Route.view('/profile/:separator/:name', ProfileIndex).name('profile.index')
 
   Route.view('/logout', Logout).name('logout')
 })
