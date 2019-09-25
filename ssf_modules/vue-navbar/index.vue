@@ -1,5 +1,6 @@
 <template>
-  <div class="ssf-vue-navbar" :class="{'open': full, 'ssf-fixed-top': fixed}" :style="{height: `${height ? height+'px' : 'auto'}`}">
+  <div class="ssf-vue-navbar" :class="{'open': full, 'ssf-fixed-top': fixed}"
+       :style="{height: `${height ? height+'px' : 'auto'}`}">
 
     <!--<div class="ssf-vue-navbar-toggle cursor-pointer" @click="toggleFull()">
       <i class="fal fa-times fa-1x5" v-if="full"></i>
@@ -29,10 +30,9 @@
             <div class="ssf-vue-dropdown-menu" :class="{'open': dropdowns[idx]}"
                  :style="`height: ${getHeight(link.children.length)}px`" @click.stop>
               <ul class="pl-0 mb-0">
-                <li v-for="child in link.children">
+                <li v-for="child in link.children" @click="toggleDropdown(idx)">
                   <router-link :to="{'name': child.name}" class="ssf-vue-navbar-link ssf-vue-dropdown-item"
-                               ref="vueDropdownItem"
-                               :class="{'active-item': isActive(child)}">
+                               ref="vueDropdownItem" :class="{'active-item': isActive(child)}">
                     <div class="ssf-w-15"><i :class="`${child.icon}`"></i></div>
                     <div class="ssf-w-85">{{ child.title }}</div>
                   </router-link>
