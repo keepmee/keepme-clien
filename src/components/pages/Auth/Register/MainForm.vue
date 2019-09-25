@@ -22,7 +22,7 @@
                       @inputted="onInputted" type="password" :required="true" icon="fal fa-lock" :autocomplete="true"/>
 
       <div class="row col-12 ssf-form-group">
-        <button class="btn border border-color-2 color-2 btn-block mt-1">Enregistrer</button>
+        <button class="btn bg-color-1 btn-block mt-1">Enregistrer</button>
       </div>
 
     </form>

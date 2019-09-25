@@ -26,7 +26,7 @@
 
         data() {
             return {
-                btnClass: 'btn btn-block border border-color-1 color-1'
+                btnClass: 'btn btn-block border border-color-1 color-1 bg-transparent'
             }
         },
 
