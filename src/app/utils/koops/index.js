@@ -3,7 +3,7 @@ import api     from "../../api"
 
 import {date, jsonParse} from "../index";
 
-const getDistanceBetween = (latitude1, longitude1, latitude2, longitude2, unit = 'K') => helpers.distance(latitude1, longitude1, latitude2, longitude2, unit).toFixed(2);
+const getDistanceBetween = (latitude1, longitude1, latitude2, longitude2, unit = 'K') => parseInt(helpers.distance(latitude1, longitude1, latitude2, longitude2, unit));
 
 
 const getKoops = (which = null, load = true) => {
@@ -43,10 +43,14 @@ const getImage = (koop) => {
   return require('../../../assets/img/kids/' + name + '.jpg')
 };
 
-const setAllKoopDistance = (koops, center) => koops ? ((koops) => {
-  koops.forEach((koop) => koop.distance = center ? getDistanceBetween(center.lat, center.lng, koop.location.lat, koop.location.lng) : 0);
-  return helpers.clone(koops)
-})(koops) : null;
+const setAllKoopDistance = (center, radius) => new Promise(
+  (resolve, reject) => {
+    api.get(`/koops/location/${center.lat}/${center.lng}/${radius}`).then(
+      (response) => resolve(setAllKoopImage(response.data.data)),
+      (error) => reject(error)
+    )
+  }
+)
 
 
 const setAllKoopTime = (koops) => koops ? ((koops) => {
@@ -66,7 +70,8 @@ const setAllKoopChildren = (koops) => koops ? ((koops) => {
   return helpers.clone(koops)
 })(koops) : null;
 
-const setAllKoopData = (koops, center) => setAllKoopChildren(setAllKoopImage(setAllKoopTime(setAllKoopDistance(koops, center))));
+const setAllKoopData = (koops, center) => setAllKoopImage(koops);
+// const setAllKoopData = (koops, center) => /*setAllKoopChildren(*/setAllKoopImage(/*setAllKoopTime(setAllKoopDistance(*/koops, center)//))//);
 
 const isVisibleKoop = (geolocation, koop, all = false) =>
   koop.nanny_id !== null ? false : all === false && geolocation.radius !== null
@@ -104,6 +109,7 @@ export {
   getKoops,
   getUserLocation,
   getTime,
+  getImage,
 
   setAllKoopDistance,
   setAllKoopTime,
