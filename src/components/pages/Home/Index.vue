@@ -1,6 +1,5 @@
 <template>
   <div class="home section-container" id="homeSection" @scroll="handleScroll">
-
     <home-pre-main :toggle="toggle.logo"/>
 
     <div id="homeMain">
@@ -70,7 +69,6 @@
         },
 
         methods: {
-
 
             handleScroll() {
                 this.current.section = scrollPosition()
