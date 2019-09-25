@@ -17,7 +17,7 @@
              @focusin="updateValue($event.target.value)" @focusout="updateValue($event.target.value)"
              :placeholder="`${placeholder ? label : ''}`"
              :autocomplete="`${autocomplete ? autocomplete === true ? name : autocomplete : 'off'}`" v-focus>
-      <label :for="name" :class="{'input-active': helpers.isLabelActive(object, name)}">
+      <label :for="name" :class="{'input-active': helpers.isLabelActive(object, name)}" v-show="!placeholder">
         <i :class="icon" class="mr-1"></i>&nbsp;<span v-html="label"></span>&nbsp;{{ required ? ' (*)' : '' }}
       </label>
       <!--      {{ helpers.isLabelActive(data, name) ? 'true' : 'false' }}-->
