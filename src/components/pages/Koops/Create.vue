@@ -211,7 +211,6 @@
 
             hideModal() {
                 this.$modal.hide('modal-create-koop')
-                this.$router.push({ name: 'home' })
             },
 
             setStart() {
