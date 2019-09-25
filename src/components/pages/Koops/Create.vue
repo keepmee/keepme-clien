@@ -186,9 +186,21 @@
 
         methods: {
 
+            resetKoop() {
+                this.koop = {
+                    title    : null, description: null,
+                    start    : null, end: null,
+                    rate     : null, note: null,
+                    longitude: null, latitude: null,
+                    children : []
+                }
+            },
+
             async onBeforeOpen() {
-                this.setStart()
-                this.setEnd()
+                this.setDateAndTime('start')
+                this.setDateAndTime('end')
+                /*this.setStart()
+                this.setEnd()*/
                 await this.getUserChildren()
                 return this.children.length === 0
                     ? this.swal({
@@ -199,7 +211,7 @@
                         confirmButtonText : "Commencer",
                         confirmButtonClass: "btn bg-color-1 btn-block",
                     }).then(
-                        (answer) => answer.value ? this.$router.push({ name: 'account.settings.children.index' }) : this.$modal.hide('modal-create-koop')
+                        (answer) => this.$modal.hide('modal-create-koop')
                     )
                     : true
             },
@@ -213,11 +225,27 @@
                 this.$modal.hide('modal-create-koop')
             },
 
-            setStart() {
-                this.setStartTime(this.helpers.moment())
-                this.setStartDate(new Date())
+
+            setDateAndTime(type) {
+                let date = this.helpers.moment()
+                date.add(1, "hours")
+                if (type === 'start') {
+                    this.setStartDate(date)
+                    this.setStartTime(date)
+                } else {
+                    this.setEndDate(date)
+                    this.setEndTime(date)
+                }
+
             },
 
+            /*setStart() {
+                let date = this.helpers.moment()
+                date.add(1, "hours")
+                this.setStartTime(date)
+                this.setStartDate(new Date())
+            },
+*/
             setStartTime(date) {
                 if (date.minute() <= 55) {
                     this.start.time.HH = `${this.helpers.twoDigits(date.hour())}`
@@ -229,13 +257,13 @@
             },
 
             setStartDate(date) {
-                this.start.date = date
+                this.start.date = new Date(date)
             },
 
-            setEnd() {
+            /*setEnd() {
                 this.setEndTime(this.helpers.moment())
                 this.setEndDate(new Date())
-            },
+            },*/
 
             setEndTime(date) {
                 if (date.minute() <= 55) {
@@ -248,7 +276,7 @@
             },
 
             setEndDate(date) {
-                this.end.date = date
+                this.end.date = new Date(date)
             },
 
             setChildren(nb) {
@@ -277,7 +305,11 @@
                 data.end = moment(`${moment(this.end.date).format('L')} ${this.end.time.HH}:${this.end.time.mm}:00`, 'DD/MM/YYYY HH:mm:ss')
 
                 this.api.post('/koop', data).then(
-                    () => this.$emit('added'),
+                    () => {
+                        this.resetKoop()
+                        this.helpers.setFeedback("success", null, this)
+                        return this.hideModal()
+                    },
                     (error) => this.helpers.setFeedback("error", error.response.data.data.error || null, this)
                 )
             }
