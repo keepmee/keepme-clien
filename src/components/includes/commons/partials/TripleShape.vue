@@ -1,17 +1,17 @@
 <template>
   <div class="triple-shape position-relative" id="tripleShape"
-       :style="{height: `${options.size + (options.size * 0.3)}px`, width: `${options.size + (options.size * 0.3)}px`, margin: `${options.size / 5}px`}">
+       :style="{height: `${image ? options.size : options.size + (options.size * 0.3)}px`, width: `${image ? options.size : options.size + (options.size * 0.3)}px`, margin: `${image ? 0 : options.size / 5}px`}">
 
     <div class="item item-1 border border-color-1"
-         :class="{'border-strong': strong, 'border-very-strong': veryStrong}"
+         :class="{'border-strong': strong, 'border-very-strong': veryStrong, 'border-0 no-rotate': image}"
          :style="{height: `${options.size}px`, width: `${options.size}px`}"></div>
 
     <div class="item item-2 border border-color-1"
-         :class="{'border-strong': strong, 'border-very-strong': veryStrong}"
+         :class="{'border-strong': strong, 'border-very-strong': veryStrong, 'border-0 no-rotate': image}"
          :style="{height: `${options.size}px`, width: `${options.size}px`}"></div>
 
     <div class="item item-3 border border-color-1"
-         :class="{'border-strong': strong, 'border-very-strong': veryStrong}"
+         :class="{'border-strong': strong, 'border-very-strong': veryStrong, 'border-0 no-rotate': image}"
          :style="{height: `${options.size}px`, width: `${options.size}px`}"></div>
 
     <div class="item item-center d-flex justify-content-center align-items-center" :class="centerClass"
@@ -33,7 +33,8 @@
             veryStrong : { type: Boolean, required: false },
             centerClass: { type: String, required: false },
             centerSize : { type: Number, required: false },
-            animate    : { type: Boolean, required: false }
+            animate    : { type: Boolean, required: false },
+            image      : { type: Boolean, required: false }
         },
 
         data() {
@@ -107,6 +108,13 @@
     border-radius: 2px;
     transform: rotate(45deg);
     margin: auto;
+  }
+
+  .triple-shape .no-rotate {
+    top: 0 !important;
+    bottom: 0 !important;
+    margin: 0 !important;
+    transform: rotate(0deg) !important;
   }
 
   .triple-shape.triple-shape-animate .item-2 {
