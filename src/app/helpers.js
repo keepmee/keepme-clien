@@ -129,8 +129,8 @@ helpers.loading = (loading = true) => {
   store.dispatch('loading', loading)
 };
 
-helpers.navigate = ($router, name) => {
-  return $router.push({ name })
+helpers.navigate = ($router, name, params = null) => {
+  return params === null ? $router.push({ name }) : $router.push({ name, params })
 };
 
 helpers.isLabelActive = (data, field) => {
