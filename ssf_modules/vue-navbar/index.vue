@@ -1,5 +1,5 @@
 <template>
-  <div class="ssf-vue-navbar" :class="{'open': full, 'ssf-fixed-top': fixed}" :style="{height: `${height || 60}px`}">
+  <div class="ssf-vue-navbar" :class="{'open': full, 'ssf-fixed-top': fixed}" :style="{height: `${height ? height+'px' : 'auto'}`}">
 
     <!--<div class="ssf-vue-navbar-toggle cursor-pointer" @click="toggleFull()">
       <i class="fal fa-times fa-1x5" v-if="full"></i>
@@ -13,15 +13,15 @@
       <ul class="pl-0 mb-0" :class="{'ml-auto': right}">
         <li class="ssf-vue-navbar-item" v-for="(link, idx) in links" :class="{'active-item': isActive(link)}">
           <div @click.prevent="action(link)" class="ssf-vue-navbar-link" v-if="!link.children">
-            <i :class="`${link.icon}`" class="mr-1 ssf-vue-navbar-icon"></i>
-            {{ link.title }}
+            <i :class="`${link.icon} ${showTitle ? 'mr-1' : ''}`" class="ssf-vue-navbar-icon"></i>
+            <span v-if="showTitle">{{ link.title }}</span>
           </div>
           <div class="ssf-vue-navbar-link ssf-vue-navbar-dropdown"
                :class="{'active-item': dropdowns[idx]}" @click="toggleDropdown(idx)"
                v-else>
-            <i :class="`${link.icon}`" class="mr-1 ssf-vue-navbar-icon"></i>
+            <i :class="`${link.icon} ${showTitle ? 'mr-1' : ''}`" class="ssf-vue-navbar-icon"></i>
             <span>
-              {{ link.title }}
+              <span v-if="showTitle">{{ link.title }}</span>
               <i class="fal ssf-vue-dropdown-icon"
                  :class="{'fa-angle-up': dropdowns[idx], 'fa-angle-down': !dropdowns[idx]}"></i>
             </span>
@@ -63,6 +63,7 @@
             right     : { type: Boolean, required: false },
             toggleIcon: { type: String, required: false },
             fixed     : { type: Boolean, required: false },
+            showTitle : { type: Boolean, required: false, default: true },
         },
 
         data() {
