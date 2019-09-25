@@ -21,13 +21,13 @@
       <div class="col-12 col-md-6 col-lg-8 px-0 mr-auto">
 
         <!-- SORT -->
-        <div class="row w-100 my-3" id="mainKoopViews">
+        <div class="row w-100 mt-3" id="mainKoopViews">
 
-          <koop-sort :sort="sort" @click="onClickSortBy" class="col-6"/>
+          <koop-sort :sort="sort" @click="onClickSortBy" class="col-12"/>
 
-          <koop-select-view :view="view" class="col-6 text-right px-5" @set-view="onSetView"/>
+          <!--          <koop-select-view :view="view" class="col-6 text-right px-5" @set-view="onSetView"/>-->
 
-          <hr class="w-100">
+          <hr class="w-100 mb-0">
 
         </div>
 
@@ -40,7 +40,7 @@
 
         <!-- LIST -->
         <div class="row" v-else-if="view === 2">
-          <div class="col-12" v-for="(koop, $i) in koops" v-if="isVisibleKoop(koop)">
+          <div class="col-12 px-0" v-for="(koop, $i) in koops" v-if="isVisibleKoop(koop)">
             <koop-view-list :koop="koop" :key="$i" @apply="apply"/>
           </div>
         </div>
@@ -56,11 +56,11 @@
 
     </div>
 
-    <!-- MODAL CREATE KOOP -->
-    <modal-create-koop @added="onAddedKoop"/>
+    <!-- MODAL CREATE KOOP
+    <modal-create-koop @added="onAddedKoop"/>-->
 
-    <!-- MODAL SHOW KOOP -->
-    <modal-show-koop :koop="current.koop" @applied="onApplied"/>
+    <!-- MODAL SHOW KOOP
+    <modal-show-koop :koop="current.koop" @applied="onApplied"/>-->
 
   </div>
 
@@ -77,7 +77,7 @@
     import KoopSelectView from '../../includes/Koops/includes/SelectView'
 
     import ModalCreateKoop from './Create'
-    import ModalShowKoop   from './Show'
+    import ModalShowKoop   from './Show-old'
 
     import {scroll} from "../../../app/utils";
 
@@ -158,12 +158,14 @@
             * * koop data
             * */
 
-            setCenter(coordinates) {
+            async setCenter(coordinates) {
                 this.geolocation.center = this.helpers.clone({
                     lat: parseFloat(coordinates.lat),
                     lng: parseFloat(coordinates.lng)
                 });
-                this.koops = setAllKoopDistance(this.koops, this.geolocation.center)
+                // let tmp = await setAllKoopDistance(this.koops, this.geolocation.center)
+                this.koops = await setAllKoopDistance(this.geolocation.center, this.geolocation.radius)
+                // console.log(tmp)
                 this.$forceUpdate()
             },
 
@@ -180,14 +182,17 @@
             },
 
             apply(koop) {
-
-                let user = this.$store.getters.user.storage;
+                return this.helpers.navigate(this.$router, 'koops.show', {
+                    id  : koop.id,
+                    name: `${koop.author.firstname}.${koop.author.lastname}`
+                })
+                /*let user = this.$store.getters.user.storage;
                 this.current.koop = this.helpers.clone(koop);
                 return (user === null)
                     ? this.$route.push({ name: 'login' })
                     : (user.role === 'nanny')
                         ? this.$modal.show('modal-show-koop')
-                        : null
+                        : null*/
             },
 
             onClickSortBy(field) {
@@ -234,7 +239,11 @@
 
   @media screen and (max-width: 767px) {
     .vue-map-container {
-      height: 75vh !important;
+      height: calc(75vh - 50px) !important;
+    }
+
+    .click-to-view {
+      height: calc(25vh - 50px) !important;
     }
   }
 
