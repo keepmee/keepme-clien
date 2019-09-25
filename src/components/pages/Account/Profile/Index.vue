@@ -2,8 +2,7 @@
   <div class="profile-container">
     <profile-image :user="user" :get-user-name="getUserName" class="my-5"/>
 
-    <koops-summary class="my-4" :koops="koops"/>
-
+    <koops-summary class="my-4" :koops="koops" v-if="$store.getters.user.storage.role === 'parent'"/>
 
     <!-- SORT -->
     <div class="row w-100 my-3" id="mainKoopViews">
@@ -25,11 +24,20 @@
 
     <!-- LIST -->
     <div class="row" v-else-if="view === 2">
-      <div class="col-12" v-for="(koop, $i) in koops">
-        <koop-view-list :koop="koop" :key="$i" v-if="isVisibleKoop(koop)" :notification="koop.notification"/>
-        <!--        <koop-view-list :koop="koop" :key="$i" v-if="isVisibleKoop(koop)" :notification="koop.notification"/>-->
+      <div class="col-12 px-0 position-relative" v-for="(koop, $i) in koops">
+        <koop-view-list :koop="koop" :key="$i" @show-notification="onShowNotification"
+                        :notification="koop.notification ? koop.notification.number : 0" @apply="onApply"/>
+
+        <div class="row card-status pb-3 pr-3 fa-1x5" v-if="$store.getters.user.storage.role === 'nanny'">
+          <i class="fal text-success fa-check" v-if="$store.getters.user.storage.id === (koop.nanny || {}).user_id"></i>
+          <i class="fal text-danger fa-times" v-else-if="koop.nanny_id !== null"></i>
+          <i class="fal text-warning fa-hourglass-half" v-else></i>
+        </div>
+
       </div>
     </div>
+
+    <koop-application :notifications="current.notifications" v-if="$store.getters.user.storage.role === 'parent'"/>
 
   </div>
 </template>
@@ -37,18 +45,22 @@
 <script>
 
     import {getKoops, getUserLocation, isVisibleKoop, setAllKoopData, sortBy} from "../../../../app/utils/koops";
-    import ProfileImage                                                       from './includes/Image'
-    import KoopsSummary                                                       from './includes/KoopsSummary/Index'
+
+    import ProfileImage    from './includes/Image'
+    import KoopsSummary    from './includes/KoopsSummary/Index'
+    import KoopApplication from './includes/KoopApplication'
 
     import KoopViewGrid   from '../../../includes/Koops/Views/Grid'
     import KoopViewList   from '../../../includes/Koops/Views/List'
     import KoopSort       from '../../../includes/Koops/includes/Sort'
     import KoopSelectView from '../../../includes/Koops/includes/SelectView'
 
+
     export default {
         name: "AccountProfileIndex",
 
         components: {
+            KoopApplication,
             ProfileImage,
             KoopsSummary,
 
@@ -61,6 +73,7 @@
 
         data() {
             return {
+                current    : {},
                 user       : null,
                 koops      : null,
                 view       : 2,
@@ -74,6 +87,26 @@
         },
 
         methods: {
+
+            onShowNotification(koop) {
+                this.current.notifications = this.helpers.clone(koop.notification.content)
+                this.$forceUpdate()
+                this.$modal.show('modal-show-koop-application')
+            },
+
+            onApply(koop) {
+                return this.helpers.navigate(this.$router, 'koops.show', {
+                    id  : koop.id,
+                    name: `${koop.author.firstname}.${koop.author.lastname}`
+                })
+                /*let user = this.$store.getters.user.storage;
+                this.current.koop = this.helpers.clone(koop);
+                return (user === null)
+                    ? this.$route.push({ name: 'login' })
+                    : (user.role === 'nanny')
+                        ? this.$modal.show('modal-show-koop')
+                        : null*/
+            },
 
             getCurrentUser() {
                 this.user = this.$store.getters.user.storage
@@ -106,14 +139,20 @@
             },
 
             getNotification() {
-                this.api.get('/notifications').then(
+                this.api.get('/notifications/unread/apply').then(
                     (response) => {
-                        if (response.data && response.data.data && response.data.data.notification)
+                        console.log(response.data)
+                        if (response.data && response.data.data && this.koops)
                             this.koops.forEach((koop) => {
-                                let tmp = response.data.data.notification.filter(n => n.data.koop && n.data.koop.id === koop.id)
-                                koop.notification = tmp ? tmp.length : 0
+                                let tmp = response.data.data.filter(n => n.data.koop && n.data.koop.id === koop.id)
+                                koop.notification = {
+                                    number : tmp ? tmp.length : 0,
+                                    content: tmp
+                                }
+                                // console.log(koop.id, n.data.koop)
                             })
                         this.koops = this.helpers.clone(this.koops)
+
                     },
                     (error) => this.helpers.setFeedback("error", error.response.data.data.error || null, this)
                 )
@@ -159,4 +198,15 @@
     }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+
+  .card-status {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    /*height: 130px;*/
+    /*background: #000;*/
+  }
+
+</style>
