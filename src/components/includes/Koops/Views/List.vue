@@ -3,7 +3,7 @@
 
     <!-- Card -->
     <div class="card-list row w-100 border-bottom position-relative cursor-pointer"
-         :class="{'bg-color-4': hover, 'bg-light font-italic grey-text': helpers.moment() > helpers.moment(koop.start), 'border-color-1': helpers.moment() < helpers.moment(koop.start)}"
+         :class="{'bg-color-4': hover, 'bg-light font-italic grey-text': helpers.moment().unix() > helpers.moment(koop.start).unix(), 'border-color-1': helpers.moment().unix() <= helpers.moment(koop.start).unix()}"
          @click="$emit('apply', koop)">
 
       <div class="col-3 col-md-2 h-100 d-md-block d-none">
