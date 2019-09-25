@@ -107,6 +107,10 @@
 
   }
 
+  #formResponse.v--modal-overlay {
+    z-index: 1052 !important;
+  }
+
   .form-response-type-icon {
     position: absolute;
     top: -50px;
