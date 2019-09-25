@@ -139,9 +139,10 @@
 .ssf-vue-navbar .ssf-vue-navbar-link.ssf-vue-navbar-dropdown .ssf-vue-dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
+  /*left: 0;*/
   right: 0;
-  width: 100%;
+  /*width: 100%;*/
+  min-width: 200px;
   background: #fff;
   -webkit-transition: height .3s;
   -moz-transition: height .3s;
