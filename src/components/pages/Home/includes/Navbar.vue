@@ -79,7 +79,7 @@
     -moz-box-shadow: none !important;
     -o-box-shadow: none !important;
     box-shadow: none !important;
-    height: 100px;
+    /*height: 100px;*/
   }
 
   .nav-item.active a.nav-link {
