@@ -10,7 +10,7 @@
     <!-- PRE MAIN CONTENT -->
     <div class="home-pre-main-content d-flex justify-content-center align-items-center flex-column">
       <div class="row d-none" :class="logoClass">
-        <img src="../../../../assets/img/logo.png" alt="">
+        <img src="../../../../assets/img/logo.png" alt="Logo" class="img-fluid px-2 px-md-0">
       </div>
 
       <div class="home-pre-main-content-icon text-center cursor-pointer" @click="slideToNext">
