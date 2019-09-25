@@ -26,6 +26,7 @@ module.exports = {
   publicPath: process.env.PUBLIC_PATH || '/',
 
   devServer: {
-    port: process.env.PORT || 4000
+    port            : process.env.PORT || 4000,
+    disableHostCheck: true
   }
 };
