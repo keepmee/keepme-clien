@@ -42,7 +42,7 @@ const formatNumber = (value) => {
 const date = {
   diff(start = null, end = null, format = true) {
     let minutes = helpers.moment(end).diff(helpers.moment(start), 'minutes')
-    return start && end ? formatHoursAndMinutes(parseInt(minutes / 60), parseInt(minutes % 60)) : null
+    return start && end ? format ? formatHoursAndMinutes(parseInt(minutes / 60), parseInt(minutes % 60)) : minutes : null
   }
 }
 
@@ -55,6 +55,10 @@ const formatHoursAndMinutes = (hours, minutes) => {
 }
 
 const jsonParse = (text) => {
+
+  if ((Array.isArray(text) || text instanceof Object) && !(text instanceof String))
+    return text
+
   try {
     return (/^[\],:{}\s]*$/.test(text.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) ? JSON.parse(text) : null
   } catch (e) {
