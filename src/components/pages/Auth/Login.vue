@@ -43,7 +43,7 @@
 
       <div class="row">
         <div class="col-12 ssf-form-group mt-0">
-          <button class="btn border-color-1 color-1 btn-block" @click.prevent="helpers.navigate($router, 'register')">
+          <button class="btn border-color-1 color-1 btn-block bg-transparent" @click.prevent="helpers.navigate($router, 'register')">
             Inscription
           </button>
         </div>
@@ -146,7 +146,7 @@
                         }
                         location.reload()
                     },
-                    (error) => (error && error.response) ? this.helpers.setFeedback("error", error.response.data.data.error, this) : null
+                    (error) => (error && error.response) ? this.helpers.setFeedback("error", error.response.data.data.error || null, this) : null
                 )
             }
 

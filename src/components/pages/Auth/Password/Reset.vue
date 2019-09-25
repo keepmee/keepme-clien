@@ -76,7 +76,7 @@
                     },
                     (error) => {
                         console.log(error, error.response)
-                        return (error && error.response) ? this.helpers.setFeedback("error", error.response.data.data.error, this) : null
+                        return (error && error.response) ? this.helpers.setFeedback("error", error.response.data.data.error || null, this) : null
                     }
                 )
             },
