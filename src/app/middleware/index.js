@@ -1,10 +1,12 @@
-import Auth  from './auth'
-import Guest from './guest'
+import Auth    from './auth'
+import Guest   from './guest'
+import Nannied from './nannied'
 
 
 const middleware = {
   Auth,
-  Guest
+  Guest,
+  Nannied
 }
 
 

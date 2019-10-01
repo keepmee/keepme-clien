@@ -1,7 +1,7 @@
 import {findIndexRouteName} from "../../utils/routes";
 
 const routes = {
-  koops   : { index: findIndexRouteName('koops'), create: 'koops.create' },
+  koops   : { index: findIndexRouteName('koops'), create: 'koops.create', nannies: 'nannies.index' },
   logout  : 'logout',
   profile : { index: findIndexRouteName('profile') },
   settings: {
@@ -18,7 +18,7 @@ routes.account = Object.values(routes.settings);
 Array.prototype.push.apply(routes.account, [routes.profile.index, routes.logout]);
 
 export default [
-  { title: 'Accueil', icon: 'far fa-home', name: routes.koops.index },
+  { title: 'Accueil', icon: 'far fa-home', name: routes.koops.index, routes: Object.values(routes.koops) },
   { title: 'Poster', icon: 'far fa-layer-plus', action: 'showCreateKoopsModal' },
   {
     title   : 'Mon compte',

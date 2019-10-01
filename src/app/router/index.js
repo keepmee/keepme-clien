@@ -24,6 +24,7 @@ import AccountProfileIndex          from '../../components/pages/Account/Profile
 import AccountProfileNotifications  from '../../components/pages/Account/Profile/Notifications'
 import AccountSettingsDiplomasIndex from '../../components/pages/Account/Settings/pages/Diplomas/Index'
 import ProfileIndex                 from '../../components/pages/Profile/Index'
+import NannieIndex                  from '../../components/pages/Nannies/Index'
 
 import Login          from '../../components/pages/Auth/Login'
 import Register       from '../../components/pages/Auth/Register/Index'
@@ -31,52 +32,56 @@ import PasswordForgot from '../../components/pages/Auth/Password/Forgot'
 import PasswordReset  from '../../components/pages/Auth/Password/Reset'
 import Logout         from '../../components/pages/Auth/Logout'
 
-Vue.use(Router)
+Vue.use(Router);
 
 Route.group({ beforeEnter: Middleware.Auth }, () => {
 
   // Route.view('/post/create', HomePostCreate).name('home.post.create')
 
   /* Page d'accueil connecté */
-  Route.view('/koops', KoopsIndex).name('koops.index')
-  Route.view('/koops/show/:name/:id', KoopsShow).name('koops.show')
+  // Route.group({ beforeEnter: Middleware.Auth }, () => {
+  Route.view('koops', KoopsIndex).name('koops.index').guard([Middleware.Nannied])
+  // });
+  Route.view('/koops/show/:name/:id', KoopsShow).name('koops.show');
 
   /**
    * Pages de gestion du compte
    */
   // Route.view('/profile', ProfileIndex).name('profile.index')
-  Route.view('/account/settings', AccountSettingsIndex).name('account.settings.index')
-  Route.view('/account/settings/children', AccountSettingsChildrenIndex).name('account.settings.children.index')
-  Route.view('/account/settings/identity', AccountSettingsIdentityIndex).name('account.settings.identity.index')
-  Route.view('/account/settings/address', AccountSettingsAddressIndex).name('account.settings.address.index')
-  Route.view('/account/settings/password', AccountSettingsPasswordIndex).name('account.settings.password.index')
-  Route.view('/account/settings/diplomas', AccountSettingsDiplomasIndex).name('account.settings.diplomas.index')
+  Route.view('/account/settings', AccountSettingsIndex).name('account.settings.index');
+  Route.view('/account/settings/children', AccountSettingsChildrenIndex).name('account.settings.children.index');
+  Route.view('/account/settings/identity', AccountSettingsIdentityIndex).name('account.settings.identity.index');
+  Route.view('/account/settings/address', AccountSettingsAddressIndex).name('account.settings.address.index');
+  Route.view('/account/settings/password', AccountSettingsPasswordIndex).name('account.settings.password.index');
+  Route.view('/account/settings/diplomas', AccountSettingsDiplomasIndex).name('account.settings.diplomas.index');
 
-  Route.view('/account/profile', AccountProfileIndex).name('account.profile.index')
+  Route.view('/account/profile', AccountProfileIndex).name('account.profile.index');
   // Route.view('/account/profile/notifications', AccountProfileNotifications).name('account.profile.notifications')
 
-  Route.view('/profile/:separator/:name', ProfileIndex).name('profile.index')
+  Route.view('/profile/:separator/:name', ProfileIndex).name('profile.index');
+
+  Route.view('/nannies', NannieIndex).name('nannies.index');
 
   Route.view('/logout', Logout).name('logout')
-})
+});
 
 Route.group({ beforeEnter: Middleware.Guest }, () => {
 
   /* Page d'accueil */
-  Route.view('/', HomeIndex).name('home')
+  Route.view('/', HomeIndex).name('home');
 
   /* Page de connexion */
-  Route.view('/login', Login).name('login')
+  Route.view('/login', Login).name('login');
   /* Page d'inscription*/
-  Route.view('/register', Register).name('register')
+  Route.view('/register', Register).name('register');
   /* Page de mot de passe oublié */
-  Route.view('/password/forgot', PasswordForgot).name('password.forgot')
+  Route.view('/password/forgot', PasswordForgot).name('password.forgot');
   /* Page de reset mot de passe */
   Route.view('/password/reset/:email', PasswordReset).name('password.reset')
 });
 
 
-Route.redirect('*', '/')
+Route.redirect('*', '/');
 
 export default new Router({
   routes: Route.all(),
