@@ -1,7 +1,7 @@
 <template>
   <div class="profile-notification-container rounded z-depth-1-half white">
     <div class="bg-color-1 col-12 py-2 rounded-top"><span class="h5-responsive">Notifications</span></div>
-    <ul class="pl-0 mb-">
+    <ul class="pl-0 mb-" v-if="notifications && notifications.length > 0">
       <li v-for="(notification, idx) in notifications" class="row py-2 cursor-pointer" @click="navigate(notification)"
           :class="{'border-top': idx > 0, 'bg-light': notification.read_at === null}">
         <div class="col-3 col-lg-2 text-center">
@@ -25,6 +25,7 @@
         <div class="col-12 text-right small color-3 font-italic">il y a {{ getDateFrom(notification.created_at) }}</div>
       </li>
     </ul>
+    <span v-else class="font-italic grey-text">Aucune notification</span>
   </div>
 </template>
 
@@ -137,6 +138,13 @@
 
   li {
     list-style: none !important;
+  }
+
+  @media screen and (max-width: 767px) {
+    .profile-notification-container {
+      width: 300px !important;
+      max-width: calc(100% - 10px) !important;
+    }
   }
 
 </style>
