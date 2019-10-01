@@ -35,7 +35,7 @@
     import TripleShape from "../partials/TripleShape";
 
     export default {
-        name      : "Index",
+        name      : "Logo",
         components: { Icon, TripleShape },
         props     : {
             size: { type: Number, required: false }
