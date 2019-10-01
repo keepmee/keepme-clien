@@ -21,9 +21,9 @@
 
         <div class="row">
 
-          <div class="col-12 col-sm-7 col-md-8 px-0">
+          <div class="col-12 col-sm-7 col-md-8">
 
-            <profile-container :koop="koop">
+            <profile-container :koop="koop" :size="46" :center="24" :height="60">
               <div class="koop-more float-right position-relative">
                 <i class="fa fa-share-alt cursor-pointer" @click="show.share = !show.share"></i>
                 <transition name="custom-classes-transition" enter-active-class="animated zoomIn fast"
