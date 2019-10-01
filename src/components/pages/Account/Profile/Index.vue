@@ -7,9 +7,9 @@
     <!-- SORT -->
     <div class="row w-100 my-3" id="mainKoopViews">
 
-      <koop-sort :sort="sort" @click="onClickSortBy" class="col-6"/>
+      <koop-sort :sort="sort" @click="onClickSortBy" class="col-12"/>
 
-      <koop-select-view :view="view" class="col-6 text-right px-5" @set-view="onSetView"/>
+<!--      <koop-select-view :view="view" class="col-6 text-right px-5" @set-view="onSetView"/>-->
 
       <hr class="w-100">
 
@@ -121,7 +121,7 @@
                 return new Promise((resolve, reject) => {
                     getUserLocation(this).then(
                         (response) => resolve(this.setCenter(response)),
-                        () => reject(this.helpers.setFeedback("error", "Une erreur est survenue, merci de réessayer plus tard", this))
+                        (error) => reject(error === 5962 ? false : this.helpers.setFeedback("error", "Une erreur est survenue, merci de réessayer plus tard", this))
                     )
                 })
             },
