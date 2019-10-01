@@ -2,9 +2,9 @@
   <div class="row w-100" @mouseenter="hover = true" @mouseleave="hover = false">
 
     <!-- Card -->
-    <div class="card-list row w-100 border-bottom position-relative cursor-pointer"
-         :class="{'bg-color-4': hover, 'bg-light font-italic grey-text': helpers.moment().unix() > helpers.moment(koop.start).unix(), 'border-color-1': helpers.moment().unix() <= helpers.moment(koop.start).unix()}"
-         @click="$emit('apply', koop)">
+    <div class="card-list row w-100 position-relative cursor-pointer"
+         :class="{'border-bottom': bordered, 'bg-color-4': hover, 'bg-light font-italic grey-text': !all && helpers.moment().unix() > helpers.moment(koop.start).unix(), 'border-color-1': all || helpers.moment().unix() <= helpers.moment(koop.start).unix()}"
+         @click="onKoopClick(koop)">
 
       <div class="col-3 col-md-2 h-100 d-md-block d-none">
         <!-- Card header-->
@@ -193,11 +193,23 @@
         components: { ProfileContainer, ProfilePicture },
         props     : {
             koop        : { type: Object || null, required: true },
-            notification: { type: Number || null, required: false }
+            notification: { type: Number || null, required: false },
+            bordered    : { type: Boolean, default: true },
+            all         : { type: Boolean, default: false },
         },
         data() {
             return {
                 hover: false
+            }
+        },
+
+        methods: {
+            onKoopClick(koop) {
+                this.$emit('apply', koop)
+                return this.helpers.navigate(this.$router, 'koops.show', {
+                    id  : koop.id,
+                    name: `${koop.author.firstname}.${koop.author.lastname}`
+                })
             }
         }
     }

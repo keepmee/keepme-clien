@@ -8,7 +8,7 @@
         <!-- MAP -->
         <koop-view-map :map-center="geolocation.center" :koops="koops" :circle-radius="geolocation.radius"
                        :is-visible-koop="isVisibleKoop" @setRadius="setRadius" @setCenter="setCenter" class="h-100"
-                       v-if="geolocation.center"/>
+                       v-if="geolocation.center" @koop-selected="onKoopSelected"/>
 
         <!-- CLICK TO VIEW -->
         <div class="row w-100 click-to-view d-md-none d-flex justify-content-center align-items-center smooth-scroll">
@@ -41,9 +41,11 @@
         <!-- LIST -->
         <div class="row" v-else-if="view === 2">
           <div class="col-12 px-0" v-for="(koop, $i) in koops" v-if="isVisibleKoop(koop)">
-            <koop-view-list :koop="koop" :key="$i" @apply="apply"/>
+            <koop-view-list :koop="koop" :key="$i" @apply="apply" :data-koop-id="koop.id"
+                            :class="{'bg-color-2 text-white': current.selected && current.selected.id === koop.id}"/>
           </div>
         </div>
+
 
         <!-- ZERO KOOP -->
         <div class="row" v-if="countVisible === 0">
@@ -146,7 +148,7 @@
                 return new Promise((resolve, reject) => {
                     getUserLocation(this).then(
                         (response) => resolve(this.setCenter(response)),
-                        () => reject(this.helpers.setFeedback("error", "Une erreur est survenue, merci de réessayer plus tard", this))
+                        (error) => reject(error === 5962 ? false : this.helpers.setFeedback("error", "Une erreur est survenue, merci de réessayer plus tard", this))
                     )
                 })
             },
@@ -169,8 +171,10 @@
                 this.$forceUpdate()
             },
 
-            setRadius(radius) {
+            async setRadius(radius) {
                 this.geolocation.radius = radius
+                this.koops = await setAllKoopDistance(this.geolocation.center, this.geolocation.radius)
+                this.$forceUpdate()
             },
 
             setAllKoopData() {
@@ -186,13 +190,6 @@
                     id  : koop.id,
                     name: `${koop.author.firstname}.${koop.author.lastname}`
                 })
-                /*let user = this.$store.getters.user.storage;
-                this.current.koop = this.helpers.clone(koop);
-                return (user === null)
-                    ? this.$route.push({ name: 'login' })
-                    : (user.role === 'nanny')
-                        ? this.$modal.show('modal-show-koop')
-                        : null*/
             },
 
             onClickSortBy(field) {
@@ -220,7 +217,14 @@
                 this.current.koop = null
             },
 
+            onKoopSelected(koop) {
+                this.current.selected = koop
+                scroll($(`[data-koop-id=${koop.id}]`), 60, 500)
+                this.$forceUpdate()
+            },
+
             async run() {
+                // this.helpers.nannied().catch(() => this.helpers.navigate(this.$router, 'nannies.index'))
                 await this.getKoops();
                 await this.getUserLocation();
                 this.setAllKoopData();

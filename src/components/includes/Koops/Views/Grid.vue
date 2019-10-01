@@ -7,7 +7,7 @@
     <div class="card-header rounded border-0 p-0 white z-depth-1">
       <!-- Card image -->
       <div class="view overlay rounded">
-        <img class="rounded card-img-top mx-auto" :src="koop.image" alt="Card image cap">
+        <img class="rounded card-img-top mx-auto" :src="koop.image" alt="Card image cap" v-show="koop.image">
         <div class="mask waves-effect waves-light rgba-white-slight"></div>
       </div>
     </div>

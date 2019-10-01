@@ -6,11 +6,11 @@
 
     <!-- MARKERS -->
     <gmap-marker :key="index" v-for="(koop, index) in koops" :position="koop.location" :clickable="true"
-                 @click="setCenter(koop.location)" v-if="isVisibleKoop(koop)"/>
+                 @click="onMarkerClick(koop)" v-if="isVisibleKoop(koop)"/>
 
     <!-- CIRCLE -->
     <gmap-circle ref="circle" :bounds="circleBounds" :center="center" :radius="radius" :editable="true"
-                 :draggable="true" @dragend="updateCenter($event)" @center_changed="updateCircle('center', $event)"
+                 :draggable="false" @dragend="updateCenter($event)" @center_changed="updateCircle('center', $event)"
                  @radius_changed="updateCircle('radius', $event)" @bounds_changed="updateCircle('bounds', $event)"
                  v-if="radius !== null"/>
 
@@ -31,7 +31,8 @@
                 radius      : 10000,
                 filtered    : null,
                 circleBounds: {},
-                mapIsDragged: false
+                mapIsDragged: false,
+                icon        : null
             }
         },
 
@@ -52,6 +53,10 @@
         },
 
         methods: {
+
+            onMarkerClick(koop) {
+                return this.$emit('koop-selected', koop)
+            },
 
             updateCircle(prop, value) {
                 if (prop === 'radius')
