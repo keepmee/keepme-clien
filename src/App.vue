@@ -4,7 +4,9 @@
     <vue-navbar class="bg-color-4 color-1" :links="links" v-if="isVisibleNavbar()" @custom-action="onCustomAction"
                 :right="true" :fixed="true" :show-title="false">
       <template slot="brand" @click="navigate('koops.index')">
-        <logo :size="30"/>
+        <router-link :to="{name: 'home'}">
+          <logo :size="30"/>
+        </router-link>
       </template>
     </vue-navbar>
 
@@ -20,7 +22,7 @@
     <modal-form-response/>
 
     <!-- MODAL CREATE KOOP -->
-    <modal-create-koop/>
+    <modal-create-koop @created="naviteration++"/>
 
     <x-footer v-if="isVisibleFooter()"/>
 
