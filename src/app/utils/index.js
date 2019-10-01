@@ -7,7 +7,7 @@ const scroll = (to, offset = 0, speed = 1000, animate = true) => {
       scrollTop: $(to).offset().top - (40 + offset)
     }, speed);
   }
-  // else $(window).scroll($(to).offset().top - 100)
+  // else $(window).scroll($(to).offset().top - (40 + offset))
 };
 
 const scrollPosition = () => {
@@ -35,7 +35,7 @@ const formatNumber = (value) => {
 
     if (value.length > 10)
       return value.substr(0, 10).replace(/(.{2})(?!$)/g, "$1-")
-    return value.replace(/(.{2})(?!$)/g, "$1-")
+    return value.replace(/(.{2})(?!$)/g, "$1.")
   }
 };
 
