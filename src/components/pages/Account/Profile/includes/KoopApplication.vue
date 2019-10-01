@@ -10,7 +10,7 @@
             <i class="fa-circle fa-xs" :class="{'fa': !isRead(notification), 'far': isRead(notification)}"></i>
           </span>
           <router-link
-            :to="{name: 'profile.index', params: {separator:'nny', name: `${notification.data.nanny.user.firstname}-nny-${notification.data.nanny.user.lastname}`}}">
+            :to="{name: 'profile.index', params: {separator:'nny', name: `${notification.data.nanny.user.firstname}.${notification.data.nanny.user.lastname}`}}">
             {{ notification.data.nanny.user.lastname | capitalize }}
             {{ notification.data.nanny.user.firstname | capitalize }}
           </router-link>
