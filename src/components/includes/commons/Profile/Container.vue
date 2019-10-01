@@ -1,29 +1,31 @@
 <template>
 
-  <div class="profile-container row" v-if="koop">
+  <div class="profile-container row" v-if="koop || author">
     <div class="profile-picture-container" :style="{width: `${options.width}px`}">
       <profile-picture :size="options.size" :center="options.center" class="mx-auto" :small="small" :strong="strong"
-                       :image="{src: koop.author.image, height: options.height, width: options.width}"/>
+                       :image="{src: user.image, height: options.height, width: options.width}"/>
     </div>
 
-    <div class="profile-name-container px-2 d-flex justify-content-center flex-column"
+    <div class="profile-name-container pl-3 pr-2 d-flex justify-content-center flex-column"
          :style="{width: `calc(100% - ${options.width}px)`}">
       <div class="koop-author">
-        <span class="koop-author-content font-weight-bold color-1">
-          {{ koop.author.firstname | capitalize }} {{ koop.author.lastname | capitalize }}
-        </span>
+        <router-link
+          :to="{name: 'profile.index', params: {separator: nanny ? 'nny' : 'prt', name: `${user.firstname}.${user.lastname}`}}">
+          <span class="koop-author-content font-weight-bold color-1">
+            {{ user.firstname | capitalize }} {{ user.lastname | capitalize }}
+          </span>
+        </router-link>
 
         <slot></slot>
 
       </div>
 
       <div class="koop-datetime">
-              <span class="koop-datetime-content grey-text">
-                {{ helpers.moment(koop.created_at).format('HH:mm') }}
-                <i class="fal fa-ellipsis-h"></i>
-                {{ helpers.moment(koop.created_at).format('DD MMM YYYY') }}
-              </span>
-
+        <span class="koop-datetime-content grey-text" v-if="koop">
+          {{ helpers.moment(koop.created_at).format('HH:mm') }}
+          <i class="fal fa-ellipsis-h"></i>
+          {{ helpers.moment(koop.created_at).format('DD MMM YYYY') }}
+        </span>
         <slot name="slot2"></slot>
       </div>
 
@@ -43,11 +45,13 @@
 
         props: {
             koop  : { required: false },
+            author: { required: false },
             size  : { type: Number },
             center: { type: Number },
             height: { type: Number },
             small : { type: Boolean },
             strong: { type: Boolean },
+            nanny : { type: Boolean, default: false },
         },
 
         watch: {
@@ -59,6 +63,12 @@
             },
             height(value) {
                 return this.setHeight(value)
+            },
+            koop(value) {
+                return this.setAuthor(value.author)
+            },
+            author(value) {
+                return this.setAuthor(value)
             },
         },
 
@@ -72,9 +82,16 @@
                     size  : 50,
                     center: 30,
                     height: 60,
-                    width : 60
+                    width : 60,
+                    author: null
                 },
                 show   : { share: false }
+            }
+        },
+
+        computed: {
+            user() {
+                return this.options.author ? this.options.author : this.koop ? this.koop.author : {}
             }
         },
 
@@ -93,10 +110,15 @@
                 this.options.width = height || this.options.width
             },
 
+            setAuthor(author) {
+                this.options.author = author || this.options.author
+            },
+
             run() {
                 this.setSize(this.size)
                 this.setCenter(this.center)
                 this.setHeight(this.height)
+                this.setAuthor(this.author)
             }
 
         }
