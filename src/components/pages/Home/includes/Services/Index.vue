@@ -66,8 +66,8 @@
                     },
                     {
                         icon : 'fal fa-comment-dots',
-                        title: 'notation',
-                        body : "Notez et/ou commentez votre expérience afin d'aider les autres utilisateurs.",
+                        title: 'commentaire',
+                        body : "Commentez votre expérience afin d'aider les autres utilisateurs.",
                     }
                 ]
             }
