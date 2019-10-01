@@ -199,21 +199,29 @@
             async onBeforeOpen() {
                 this.setDateAndTime('start')
                 this.setDateAndTime('end')
-                /*this.setStart()
-                this.setEnd()*/
-                await this.getUserChildren()
-                return this.children.length === 0
-                    ? this.swal({
+                return !this.$store.getters.user.storage.address
+                    ? await this.alert('address')
+                    : !(await this.getUserChildren()) || this.children.length === 0
+                        ? await this.alert('children')
+                        : true
+            },
+
+            alert(page) {
+                return new Promise((resolve, reject) => {
+                    this.swal({
                         type              : "error",
                         title             : "Attention",
-                        text              : "Vous n'avez pas encore ajouté vos enfants à votre profil",
+                        text              : `Vous n'avez pas encore ajouté ${page === 'address' ? 'votre adresse' : page === 'children' ? 'vos enfants' : ''} à votre profil`,
                         allowOutsideClick : false,
                         confirmButtonText : "Commencer",
                         confirmButtonClass: "btn bg-color-1 btn-block",
                     }).then(
-                        (answer) => this.$modal.hide('modal-create-koop')
+                        () => {
+                            this.$modal.hide('modal-create-koop')
+                            return resolve(this.$router.push({ name: `account.settings.${page}.index` }))
+                        }
                     )
-                    : true
+                })
             },
 
             onInputted(name, value) {
@@ -224,7 +232,6 @@
             hideModal() {
                 this.$modal.hide('modal-create-koop')
             },
-
 
             setDateAndTime(type) {
                 let date = this.helpers.moment()
@@ -304,11 +311,17 @@
                 data.start = moment(`${moment(this.start.date).format('L')} ${this.start.time.HH}:${this.start.time.mm}:00`, 'DD/MM/YYYY HH:mm:ss')
                 data.end = moment(`${moment(this.end.date).format('L')} ${this.end.time.HH}:${this.end.time.mm}:00`, 'DD/MM/YYYY HH:mm:ss')
 
+                console.log(data, data.children)
+
+                if (!data.children || data.children.length === 0)
+                    return this.swal('Oups', 'Merci de bien vouloir sélectionner un enfant', 'error')
+
                 this.api.post('/koop', data).then(
                     () => {
                         this.resetKoop()
                         this.helpers.setFeedback("success", null, this)
-                        return this.hideModal()
+                        this.hideModal()
+                        return this.$emit('created')
                     },
                     (error) => this.helpers.setFeedback("error", error.response.data.data.error || null, this)
                 )
