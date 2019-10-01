@@ -89,6 +89,10 @@
                     if (response.data.data.address !== null)
                         this.address.current = response.data.data.address
                     this.address.back = this.helpers.clone(this.address.current)
+                    let user = this.$store.getters.user.storage
+                    user.address = response.data.data.address === null ? null : this.helpers.clone(this.address.current)
+                    console.log(response.data.data)
+                    this.$localStorage.set('user', user)
                 })
             },
 
