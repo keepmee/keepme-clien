@@ -26,7 +26,7 @@ const getUserLocation = (vue) => {
           helpers.loading(false)
           vue.$getLocation({ enableHighAccuracy: true }).then(
             (coordinates) => resolve(helpers.clone(coordinates)),
-            () => reject(error)
+            () => reject(5962)
           )
         }
       },
