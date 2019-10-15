@@ -12,7 +12,8 @@
 
     <div class="ssf-vue-navbar-list ssf-w-85">
       <ul class="pl-0 mb-0" :class="{'ml-auto': right}">
-        <li class="ssf-vue-navbar-item" v-for="(link, idx) in links" :class="{'active-item': isActive(link)}">
+        <li class="ssf-vue-navbar-item" v-for="(link, idx) in links" :class="{'active-item': isActive(link)}"
+            v-if="link.show">
           <div @click.prevent="action(link)" class="ssf-vue-navbar-link" v-if="!link.children">
             <i :class="`${link.icon} ${showTitle ? 'mr-1' : ''}`" class="ssf-vue-navbar-icon"></i>
             <span v-if="showTitle">{{ link.title }}</span>
