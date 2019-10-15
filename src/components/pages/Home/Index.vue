@@ -16,6 +16,8 @@
 
         <home-contact/>
 
+        <home-opinion/>
+
       </div>
 
     </div>
@@ -26,6 +28,7 @@
 <script>
 
     import HomeNavbar        from './includes/Navbar'
+    import HomeOpinion       from "./includes/Opinion";
     import HomePreMain       from './includes/PreMain'
     import HomeFunctionality from './includes/Functionalities'
     import HomeIntendedUsers from './includes/IntendedUsers/Index'
@@ -49,6 +52,7 @@
             HomeIntendedUsers,
             HomeFunctionality,
             HomeContact,
+            HomeOpinion,
             SectionTitle
         },
 
