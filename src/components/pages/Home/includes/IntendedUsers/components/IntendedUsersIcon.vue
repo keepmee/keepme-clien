@@ -1,5 +1,5 @@
 <template>
-  <triple-shape :size="225" :strong="true" :center-size="178">
+  <triple-shape :size="225" :strong="true" :center-size="178" @click="$emit('click')">
     <div class="intended-users-icon-container h-100 w-100">
       <div class="intended-users-icon-overlay" :class="bg"></div>
       <img :src="getSrc()" :alt="getAlt()" class="img-fluid">
@@ -18,7 +18,14 @@
     export default {
         name: "IntendedUsersIcon",
 
-        props: ['icon', 'labelColor', 'bg', 'shapePosition', 'label'],
+        props: {
+            icon         : { type: String, required: true },
+            labelColor   : { type: String, required: true },
+            bg           : { type: String, required: true },
+            shapePosition: { type: String, required: true },
+            label        : { type: String, required: true },
+        },
+        // props: ['icon', 'labelColor', 'bg', 'shapePosition', 'label'],
 
         components: { IntendedUsersLabel, Icon, TripleShape },
 

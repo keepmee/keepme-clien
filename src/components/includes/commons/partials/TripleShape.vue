@@ -1,5 +1,5 @@
 <template>
-  <div class="triple-shape position-relative" id="tripleShape"
+  <div class="triple-shape position-relative" id="tripleShape" @click="$emit('click')"
        :style="{height: `${image ? options.size : options.size + (options.size * 0.3)}px`, width: `${image ? options.size : options.size + (options.size * 0.3)}px`, margin: `${image ? 0 : options.size / 5}px`}">
 
     <div class="item item-1 border border-color-1"
