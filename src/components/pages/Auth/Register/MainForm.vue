@@ -120,7 +120,13 @@
                             if (response.data.data.user)
                                 this.helpers.setUserStorage(response.data.data.user)
                         }
-                        location.reload()
+                        this.swal({
+                            type : 'success',
+                            title: 'Inscription réussie',
+                            text : 'Un mail de confirmation vous a été envoyé par mail. Vous allez être rédirigé dans un instant...',
+                            timer: 3000
+                        }).then(() => location.reload())
+
                     },
                     (error) => {
                         this.resetErrors()
