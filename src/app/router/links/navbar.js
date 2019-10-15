@@ -1,4 +1,7 @@
 import {findIndexRouteName} from "../../utils/routes";
+import store                from "../../store";
+
+// console.log(await store.getters.nannied)
 
 const routes = {
   koops   : { index: findIndexRouteName('koops'), create: 'koops.create', nannies: 'nannies.index' },
@@ -17,9 +20,21 @@ const routes = {
 routes.account = Object.values(routes.settings);
 Array.prototype.push.apply(routes.account, [routes.profile.index, routes.logout]);
 
+
 export default [
-  { title: 'Accueil', icon: 'far fa-home', name: routes.koops.index, routes: Object.values(routes.koops) },
-  { title: 'Poster', icon: 'far fa-layer-plus', action: 'showCreateKoopsModal' },
+  {
+    title : 'Accueil',
+    icon  : 'far fa-home',
+    name  : routes.koops.index,
+    routes: Object.values(routes.koops),
+    show  : true
+  },
+  {
+    title : 'Poster',
+    icon  : 'far fa-layer-plus',
+    action: 'showCreateKoopsModal',
+    show  : true
+  },
   {
     title   : 'Mon compte',
     icon    : 'far fa-user',
@@ -29,7 +44,8 @@ export default [
       // { title: 'Messagerie', icon: 'fa fa-sign-out', name: routes.logout },
       { title: 'Déconnexion', icon: 'fa fa-sign-out', name: routes.logout }
     ],
-    routes  : routes.account
+    routes  : routes.account,
+    show    : true
   },
-  { title: 'Notifications', icon: 'far fa-bells', action: 'toggleNotifications' },
+  { title: 'Notifications', icon: 'far fa-bells', action: 'toggleNotifications', show: true },
 ];

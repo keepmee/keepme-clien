@@ -77,8 +77,10 @@
             }
         },
 
-        mounted() {
+        async mounted() {
             this.loaded = this.isVisibleNavbar()
+            let isNanny = await this.$store.getters.nannied
+            this.links.forEach((link) => link.show = (!(link.action === 'showCreateKoopsModal') || (link.action === 'showCreateKoopsModal' && !isNanny)))
         },
 
         methods: {
