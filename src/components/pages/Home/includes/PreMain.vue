@@ -13,8 +13,10 @@
         <img src="../../../../assets/img/logo.png" alt="Logo" class="img-fluid px-2 px-md-0">
       </div>
 
-      <div class="home-pre-main-content-icon text-center cursor-pointer" @click="slideToNext">
-        <i class="fal fa-chevron-down fa-2x color-1 animated infinite fadeInDown slow"></i>
+      <div
+        class="home-pre-main-content-icon text-center cursor-pointer d-flex justify-content-center align-items-center bg-color-1 text-white"
+        @click="slideToNext">
+        <i class="fal fa-chevron-double-down fa-3x animated infinite fadeInDown slow"></i>
       </div>
     </div>
 
@@ -86,9 +88,13 @@
 
   .home-pre-main .home-pre-main-bg {
     position: fixed !important;
-    max-height: 100vh;
     max-width: 100vw;
     z-index: -1;
+  }
+
+  .home-pre-main .home-pre-main-bg,
+  .home-pre-main .home-pre-main-overlay {
+    max-height: 85vh;
   }
 
   .home-pre-main .home-pre-main-overlay {
@@ -97,9 +103,10 @@
 
   .home-pre-main .home-pre-main-content-icon {
     position: absolute;
-    bottom: 10px;
-    width: 35px;
-    height: 35px;
+    bottom: 0;
+    width: 100%;
+    height: 15vh;
+    background: #fff;
   }
 
 </style>
