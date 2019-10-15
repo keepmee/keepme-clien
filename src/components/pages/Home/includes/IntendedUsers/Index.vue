@@ -9,13 +9,13 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-md-6 px-0" data-aos="slide-right">
-          <selector-icon class="mx-auto" icon="family" label-color="color-1" bg="bg-color-2" shape-position="right"
-                         label="parents"/>
+          <selector-icon class="mx-auto cursor-pointer" icon="family" label-color="color-1" bg="bg-color-2"
+                         shape-position="right" label="parents" @click="navigate('register')"/>
         </div>
 
         <div class="col-12 col-md-6 px-0" data-aos="slide-left">
-          <selector-icon class="mx-auto" icon="nanny" label-color="color-2" bg="bg-color-1" shape-position="left"
-                         label="nounous"/>
+          <selector-icon class="mx-auto cursor-pointer" icon="nanny" label-color="color-2" bg="bg-color-1"
+                         shape-position="left" label="nounous" @click="navigate('register')"/>
         </div>
       </div>
 
@@ -55,12 +55,15 @@
 
         mounted() {
             $(document).ready(function () {
-                // console.log($('.parallax'))
                 $('.parallax').parallax(2.6);
             });
         },
 
-        methods: {}
+        methods: {
+            navigate(name) {
+                return this.$router.push({ name })
+            },
+        }
     }
 </script>
 
