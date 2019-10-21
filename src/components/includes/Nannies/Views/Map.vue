@@ -3,7 +3,7 @@
   <!-- MAP -->
   <l-map class="position-relative mw-100" :zoom="11" :center="center" @update:zoom="zoomUpdated"
          @drag="onMapDrag" ref="myMap" @update:center="centerUpdated" v-if="center">
-    <l-tile-layer :url="url"></l-tile-layer>
+    <l-tile-layer :url="$store.getters.OSMURL"></l-tile-layer>
 
     <div class="custom-geo-search position-absolute">
 
@@ -63,7 +63,7 @@
 
         data() {
             return {
-                url         : "http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+                // url         : $store.getters.OSMURL,
                 center      : { lat: 48.856613, lng: 2.352222 },
                 radius      : 10000,
                 filtered    : null,
@@ -163,7 +163,6 @@
             async setUserAddress() {
                 this.helpers.loading()
                 let user = await this.$store.getters.user.storage
-                console.log(user)
                 this.center = user && user.address ? {
                     lat: user.address.latitude,
                     lng: user.address.longitude

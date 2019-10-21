@@ -3,7 +3,7 @@
   <!-- MAP -->
   <l-map class="position-relative mw-100" :zoom="11" :center="center" @update:zoom="onZoomUpdated"
          @drag="onMapDrag" ref="myMap" @update:center="onCenterUpdated" v-if="center">
-    <l-tile-layer :url="url"></l-tile-layer>
+    <l-tile-layer :url="$store.getters.OSMURL"></l-tile-layer>
 
     <div class="custom-geo-search position-absolute">
       <div class="bg-white border text-center cursor-pointer icon" @click="show.searchInput = !show.searchInput">
@@ -70,7 +70,7 @@
 
         data() {
             return {
-                url         : "http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+                // url         : "http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
                 // url         : 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
                 center      : { lat: 48.856613, lng: 2.352222 },
                 radius      : 10000,
