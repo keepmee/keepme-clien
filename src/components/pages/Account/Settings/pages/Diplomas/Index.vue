@@ -128,7 +128,11 @@
 
                 // Requête HTTP pour envoyer le fichier
                 this.api.postImage('/diploma', data, this.setConfig()).then(
-                    () => this.helpers.setFeedback("success", null, this) && this.$modal.hide('modal-upload-information'),
+                    () => {
+                        this.helpers.setFeedback("success", null, this)
+                        this.run()
+                        return this.$modal.hide('modal-upload-information')
+                    },
                     (error) => this.helpers.setFeedback("error", error.response.data.data.error || null, this)
                 )
             },

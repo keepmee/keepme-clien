@@ -3,10 +3,10 @@
 
     <!-- Card -->
     <div class="card-list row w-100 position-relative cursor-pointer"
-         :class="{'border-bottom': bordered, 'bg-color-4': hover, 'bg-light font-italic grey-text': !all && helpers.moment().unix() > helpers.moment(koop.start).unix(), 'border-color-1': all || helpers.moment().unix() <= helpers.moment(koop.start).unix()}"
+         :class="{'border-bottom': bordered, 'bg-color-4': hover, 'bg-light font-italic grey-text': !all && helpers.moment().unix() > helpers.moment(koop.start).unix(), 'border-color-1': all || helpers.moment().unix() <= helpers.moment(koop.start).unix(), 'small-card': small}"
          @click="onKoopClick(koop)">
 
-      <div class="col-3 col-md-2 h-100 d-md-block d-none">
+      <div class="col-3 col-md-2 h-100 d-md-block d-none" v-if="!small">
         <!-- Card header-->
         <div class="card-list-header full-absolute h-100 w-100">
           <!-- Card image -->
@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <div class="col-12 col-md-10 px-0 row pt-1 pb-3">
+      <div class="col-12 col-md-10 px-0 row pt-1 pb-3" :class="{'col-md-12': small}">
 
         <div class="col-12 px-0 px-md-2">
           <!-- Card content -->
@@ -82,7 +82,7 @@
             <div class="col-12 mt-1">
               <!-- Text -->
               <p class="card-text mb-1 text-justify grey-text">
-                <i class="fal fa-water mr-2 small"></i>{{ koop.description.substring(0, 200) }}...
+                <i class="fal fa-water mr-2 small"></i>{{ koop.description.substring(0, small ? 100 : 200) }}...
                 <i class="fal fa-eye color-1"></i>
               </p>
             </div>
@@ -109,23 +109,23 @@
 
         <div class="col-12 px-md-2 row mt-1">
 
-          <div class="koop-details px-1 px-md-2">
+          <div class="koop-details" :class="{'px-1 px-md-2': !small, 'px-1': small}">
             <i class="far fa-map-marked-alt color-3 mr-1"></i>
             <span class="number">{{ koop.distance }}</span><span class="font-italic small">km</span>
           </div>
 
-          <div class="koop-details px-1 px-md-2">
+          <div class="koop-details" :class="{'px-1 px-md-2': !small, 'px-1': small}">
             <i class="far fa-clock color-3 mr-1"></i>
             <span class="number">{{ koop.duration }}</span>
           </div>
 
-          <div class="koop-details px-1 px-md-2">
+          <div class="koop-details" :class="{'px-1 px-md-2': !small, 'px-1': small}">
             <i class="far fa-money-bill-wave color-3 mr-1"></i>
             <span class="number">{{ koop.rate }}</span>
             <span class="font-italic small">€/h</span>
           </div>
 
-          <div class="koop-details px-1 px-md-2">
+          <div class="koop-details" :class="{'px-1 px-md-2': !small, 'px-1': small}">
             <i class="far fa-calendar-day color-3 mr-1"></i>
             <span>{{ helpers.moment(koop.start).format('DD.MM.YYYY') }}</span>
           </div>
@@ -196,6 +196,7 @@
             notification: { type: Number || null, required: false },
             bordered    : { type: Boolean, default: true },
             all         : { type: Boolean, default: false },
+            small       : { type: Boolean, required: false, default: false }
         },
         data() {
             return {
@@ -263,6 +264,10 @@
     bottom: 0;
     /*height: 130px;*/
     /*background: #000;*/
+  }
+
+  .card-list.small-card {
+    font-size: 80% !important;
   }
 
 </style>

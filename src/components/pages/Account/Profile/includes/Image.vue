@@ -10,7 +10,7 @@
 
     <profile-picture :size="small ? 66 : 130" :center="user.image ? small ? 65 : 130 : small ? 42 : 85"
                      :image="{src: user.image, height: small ? 65 : 130, width: small ? 65 : 130}"
-                     :strong="false" class="profile-image" :class="{'small-item': small}"/>
+                     :strong="false" class="profile-image" :class="{'small-item': small, 'fa-2x': !small}"/>
 
     <div class="profile-image-details" :class="{'small-item': small}">
       <div class="bar main bg-color-3" :class="{'image': user.image}"></div>

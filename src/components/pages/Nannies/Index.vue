@@ -8,16 +8,26 @@
     </div>
 
     <div class="col-12 col-md-6 col-lg-8 px-0 ml-auto">
+
       <!-- LIST -->
       <div class="row">
-        <div class="col-12 px-0" v-for="(nanny, $i) in nannies">
+        <div class="col-12 px-0" v-for="(nanny, $i) in nannies" v-if="isVisibleNanny(nanny)">
           <router-link
-            :to="{name: 'profile.index', params: {separator: 'nny', name: `${nanny.user.firstname}.${nanny.user.lastname}`}}" class="nanny-nav-item">
-          <nanny-view-list :nanny="nanny" :key="$i" :data-nanny-id="nanny.id"
-                           :class="{'bg-color-2 text-white': current.selected && current.selected.id === nanny.id}"/>
+            :to="{name: 'profile.index', params: {separator: 'nny', name: `${nanny.user.firstname}.${nanny.user.lastname}`}}"
+            class="nanny-nav-item">
+            <nanny-view-list :nanny="nanny" :key="$i" :data-nanny-id="nanny.id"
+                             :class="{'bg-color-2 text-white': current.selected && current.selected.id === nanny.id}"/>
           </router-link>
         </div>
       </div>
+
+      <!-- ZERO KOOP -->
+      <div class="row" v-if="countVisible === 0">
+        <div class="col-12">
+          <span class="grey-text font-italic">Aucune nounou disponible dans votre secteur</span>
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -28,10 +38,11 @@
 
     const gender = require('gender-detection')
 
-    import {scroll}         from "../../../app/utils";
-    import ProfileContainer from "../../includes/commons/Profile/Container";
-    import NannyViewList    from "../../includes/Nannies/Views/List";
-    import NannyViewMap     from "../../includes/Nannies/Views/Map";
+    import {scroll}             from "../../../app/utils";
+    import {getDistanceBetween} from "../../../app/utils/koops";
+    import ProfileContainer     from "../../includes/commons/Profile/Container";
+    import NannyViewList        from "../../includes/Nannies/Views/List";
+    import NannyViewMap         from "../../includes/Nannies/Views/Map";
 
     export default {
         name: "NanniesIndex",
@@ -54,8 +65,20 @@
             return this.run()
         },
 
+        computed: {
+            countVisible() {
+                return this.nannies ? this.nannies.reduce((count, nanny) => this.isVisibleNanny(nanny) ? count + 1 : count, 0) : 0
+            }
+        },
+
         methods: {
 
+            isVisibleNanny(nanny) {
+                return (nanny.distance && nanny.distance < 10)
+                    || (nanny.user && nanny.user.address && this.$store.getters.user.storage && this.$store.getters.user.storage.address && getDistanceBetween(parseFloat(this.$store.getters.user.storage.address.latitude), parseFloat(this.$store.getters.user.storage.address.longitude), parseFloat(nanny.user.address.latitude), parseFloat(nanny.user.address.longitude), 'm') < 10000)
+                /*koop.nanny_id !== null ? false : all === false && geolocation.radius !== null
+                    ? getDistanceBetween(geolocation.center.lat, geolocation.center.lng, koop.location.lat, koop.location.lng, 'm') < geolocation.radius : true*/
+            },
 
             age(birthday) {
                 let year;

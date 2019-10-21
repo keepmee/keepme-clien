@@ -5,16 +5,7 @@
     <div class="row" v-if="koop">
 
       <div class="container-fluid koop-image-container position-relative mb-5 px-0">
-        <div class="koop-image-overlay d-flex justify-content-center align-items-center text-center">
-          <blockquote class="groucho text-white w-100 sanchez">
-            <span class="mx-2">&#10077;</span>
-            {{ koop.title }}
-            <span class="mx-2">&#10078;</span>
-          </blockquote>
-        </div>
-        <div class="h-100 w-100">
-          <img :src="koop.image" alt="Image" v-show="koop.image" class="position-absolute">
-        </div>
+        <koop-top :koop="koop"/>
       </div>
 
       <div class="container-fluid px-0">
@@ -231,6 +222,7 @@
     import Share            from "../../includes/commons/Share";
     import KoopViewGrid     from '../../includes/Koops/Views/Grid'
     import DetailsSeparator from "./includes/Show/DetailsSeparator";
+    import KoopTop          from "./includes/Show/KoopTop";
 
     export default {
         name: "Show",
@@ -240,6 +232,7 @@
         },
 
         components: {
+            KoopTop,
             ProfileContainer,
             Share,
             SsfFormGroup,
@@ -363,7 +356,11 @@
     }
 </script>
 
-<style scoped>
+<style>
+
+  .map-image .leaflet-routing-container.leaflet-bar.leaflet-control {
+    display: none !important;
+  }
 
   .koop-image-container {
     height: 300px;
@@ -371,10 +368,11 @@
     overflow: hidden;
   }
 
-  .koop-image-container img {
+  .koop-image-container img,
+  .koop-image-container .map-image {
     top: 0;
     bottom: 0;
-    /*z-index: -1;*/
+    z-index: -1;
     width: 100%;
     min-height: 100%;
   }

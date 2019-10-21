@@ -24,6 +24,37 @@ import router  from './app/router'
 import store   from './app/store'
 import api     from './app/api'
 
+import {LMap, LTileLayer, LMarker, LCircleMarker, LCircle, LPopup, LControl} from 'vue2-leaflet';
+import VGeosearch                                                            from 'vue2-leaflet-geosearch';
+
+import {Icon} from 'leaflet';
+import "leaflet/dist/leaflet.css"
+// import "leaflet-geosearch/dist/style.css"
+import "leaflet-geosearch/assets/css/leaflet.css"
+// leaflet-geosearch@2.6.0/assets/css/leaflet.css
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.js'
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.css'
+import 'leaflet-routing-machine/dist/leaflet.routing.icons.png'
+
+delete Icon.Default.prototype._getIconUrl;
+
+Icon.Default.mergeOptions({
+  // iconRetinaUrl: require('./assets/img/icons/map-marker-2x.png'),
+  iconUrl      : require('./assets/img/icons/map-marker.png'),
+  // shadowUrl    : require('./assets/img/icons/map-marker.png'),
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  // iconUrl      : require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl    : require('leaflet/dist/images/marker-shadow.png')
+});
+
+Vue.component('l-map', LMap);
+Vue.component('l-tile-layer', LTileLayer);
+Vue.component('l-marker', LMarker);
+// Vue.component('l-circle-marker', LCircleMarker);
+Vue.component('l-circle', LCircle);
+Vue.component('l-popup', LPopup);
+// Vue.component('l-control', LControl);
+
 Vue.use(VueModal);
 Vue.use(Vue2Filters);
 Vue.use(VueCarousel3d);

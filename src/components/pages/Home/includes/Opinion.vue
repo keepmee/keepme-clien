@@ -55,21 +55,21 @@
                 opinions: [
                     {
                         mark   : 5,
-                        content: "Contenu test",
+                        content: "Super plateforme. Facile à prendre en main, le service rendu par les nounous de la plateforme est de qualité. Au top merci !",
                         author : "Aurélie Grondin",
-                        date   : '2019-01-01 00:00'
+                        date   : '2019-10-15 10:43'
                     },
                     {
                         mark   : 3,
-                        content: "Contenu test",
+                        content: "Souvent eu des problèmes pour trouver des nounous proches de mon lieu de travail mais avec KeepMe je n'ai plus ce problème.",
                         author : "Denis Roux",
-                        date   : '2019-01-01 00:00'
+                        date   : '2019-09-28 15:38'
                     },
                     {
                         mark   : 4,
-                        content: "Contenu test",
+                        content: "Ma nounou a déménagé, je me suis donc à nouveau retrouvé en recherche de nounous pour mes filles, KeepMe m'a énormément facilité la vie. Je recommande !",
                         author : "Sébastien Camus",
-                        date   : '2019-01-01 00:00'
+                        date   : '2019-10-20 19:32'
                     }
                 ]
             }

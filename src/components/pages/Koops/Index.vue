@@ -7,7 +7,8 @@
 
         <!-- MAP -->
         <koop-view-map :map-center="geolocation.center" :koops="koops" :circle-radius="geolocation.radius"
-                       :is-visible-koop="isVisibleKoop" @setRadius="setRadius" @setCenter="setCenter" class="h-100"
+                       :is-visible-koop="isVisibleKoop" @setRadius="setRadius" @setCenter="setCenter"
+                       class="h-100 vue-map-container"
                        v-if="geolocation.center" @koop-selected="onKoopSelected"/>
 
         <!-- CLICK TO VIEW -->
