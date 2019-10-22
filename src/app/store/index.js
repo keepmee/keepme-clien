@@ -17,7 +17,7 @@ const state = {
   API_SERVER : process.env.API_SERVER || "http://localhost:4001", // Adresse du serveur
   COOKIE_NAME: "keepme_token", // Adresse du serveur
   GMAPS_KEY  : 'AIzaSyDmlw5nwiNkWJo3Xznkn05vLFpP10lBXjU',
-  OSMURL     : 'http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+  OSMURL     : 'https://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
   user       : null,
   loading    : false, // Le formulaire est envoyé
 };
