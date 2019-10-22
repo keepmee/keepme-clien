@@ -4,13 +4,19 @@
 
     <div class="col-12 col-md-6 col-lg-4 px-0 nanny-view-map mr-auto">
       <!-- MAP -->
-      <nanny-view-map :nannies="nannies" class="h-100" @nanny-selected="onNannySelected"/>
+      <nanny-view-map :nannies="nannies" class="h-100 vue-map-container" @nanny-selected="onNannySelected"/>
+
+      <!-- CLICK TO VIEW -->
+      <div class="row w-100 click-to-view d-md-none d-flex justify-content-center align-items-center smooth-scroll">
+        <i class="fal fa-chevron-double-down color-1 cursor-pointer fa-3x animated infinite fadeInDown slower"
+           @click="onScrollToViews"></i>
+      </div>
     </div>
 
     <div class="col-12 col-md-6 col-lg-8 px-0 ml-auto">
 
       <!-- LIST -->
-      <div class="row">
+      <div class="row" id="mainNannyView">
         <div class="col-12 px-0" v-for="(nanny, $i) in nannies" v-if="isVisibleNanny(nanny)">
           <router-link
             :to="{name: 'profile.index', params: {separator: 'nny', name: `${nanny.user.firstname}.${nanny.user.lastname}`}}"
@@ -102,6 +108,11 @@
                 this.$forceUpdate()
             },
 
+
+            onScrollToViews() {
+                scroll('#mainNannyView')
+            },
+
             run() {
                 this.getNannies()
             }
@@ -110,6 +121,21 @@
 </script>
 
 <style scoped>
+
+  .click-to-view {
+    height: 25vh;
+  }
+
+  @media screen and (max-width: 767px) {
+    .vue-map-container {
+      height: calc(75vh - 50px) !important;
+    }
+
+    .click-to-view {
+      height: calc(25vh - 50px) !important;
+    }
+  }
+
   @media screen and (min-width: 768px) {
     .nanny-view-map {
       position: fixed;
