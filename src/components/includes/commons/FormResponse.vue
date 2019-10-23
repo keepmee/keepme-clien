@@ -1,10 +1,10 @@
 <template>
   <modal name="modal-form-response" id="formResponse" height="auto" :adaptive="true" :reset="true" :scrollable="true"
-         @before-open="beforeOpen" :class="{'form-response-success': isSuccess()}">
+         @before-open="beforeOpen" :class="{'form-response-success': isSuccess() && !message}">
     <!--         :scrollable="true" :width="width.current" @before-open="adjustWidth" class="py-2">-->
 
-    <div class="vue-modal-header px-4 border-top border-very-strong rounded"
-         :class="{'border-success-dark': isSuccess(), 'border-danger-dark': isError()}">
+    <div class="vue-modal-header px-4"
+         :class="{'border-success-dark': isSuccess() && message, 'border-danger-dark': isError(), 'border-top border-very-strong': message || isError()}">
       <button class="form-response-type-icon text-white border-0 animated bounceInUp"
               :class="{'success-color-dark': isSuccess(), 'danger-color-dark': isError()}" @click="hideModal">
         <i class="fal fa-3x animated zoomInDown delay-1s" :class="{'fa-check': isSuccess(), 'fa-times': isError()}"></i>
@@ -12,13 +12,15 @@
       <!--      <hr class="w-100 border-dark">-->
     </div>
 
-    <div class="vue-modal-body" :class="{'p-5': !isSuccess(), 'text-white font-weight-bold': isSuccess()}">
+    <div class="vue-modal-body p-5"> <!--:class="{'p-5': !isSuccess(), 'text-white font-weight-bold': isSuccess()}">-->
 
       <!--      <feedback :show="feedback.show" :content="feedback.content" :type="feedback.type"/>-->
 
       <div class="row w-100">
         <div class="col-12 text-center">
-          <span class="font-italic" :class="{'text-danger-dark': isError()}">{{ message }}</span>
+          <span class="font-italic" :class="{'text-success-dark': isSuccess(), 'text-danger-dark': isError()}">
+            {{ message || (isError() && !message ? "Une erreur est survenue, merci de réessayer plus tard" : '')}}
+          </span>
         </div>
       </div>
 
@@ -128,6 +130,10 @@
 
   .border-success-dark {
     border-color: #007e33 !important;
+  }
+
+  .text-success-dark {
+    color: #007e33 !important;
   }
 
   .border-danger-dark {
