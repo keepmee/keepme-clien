@@ -1,5 +1,5 @@
 <template>
-  <div id="footer" class="position-relative" :style="{marginTop: `${isHome ? 0 : 200}px`}">
+  <div id="footer" class="position-relative section-container" :style="{marginTop: `${isHome ? 0 : 200}px`}">
 
     <div class="footer-overlay bg-color-4 py-4">
       <!--      <div class="container">-->

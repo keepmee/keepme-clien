@@ -16,7 +16,9 @@ const scrollPosition = () => {
   if (sections)
     sections.each((index, section) => {
       if ($(section).offset().top < (scrollPosition + 200))
-        current = $(section).attr('id')
+        if ($('#contactIndexSection').offset().top < scrollPosition)
+          current = 'contactIndexSection'
+        else current = $(section).attr('id')
     });
   return current
 };
