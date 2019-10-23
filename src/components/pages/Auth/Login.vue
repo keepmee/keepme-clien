@@ -43,7 +43,8 @@
 
       <div class="row">
         <div class="col-12 ssf-form-group mt-0">
-          <button class="btn border-color-1 color-1 btn-block bg-transparent" @click.prevent="helpers.navigate($router, 'register')">
+          <button class="btn border-color-1 color-1 btn-block bg-transparent"
+                  @click.prevent="helpers.navigate($router, 'register')">
             Inscription
           </button>
         </div>
@@ -67,8 +68,7 @@
         components: { Icon, SsfFormGroup, Auth },
         data() {
             return {
-//                user: { email: 'sofiane.akbly@gmail.com', password: 'toto', remember: false },
-		user: { email: null, password: null, remember: false },
+                user: { email: null, password: null, remember: false },
             }
         },
 
