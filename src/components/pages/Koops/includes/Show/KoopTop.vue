@@ -12,7 +12,7 @@
 
       <!-- MAP -->
       <l-map class="position-absolute h-100 w-100 map-image" :zoom="11" :center="koop.location" ref="koopShowMap">
-        <l-tile-layer :url="url"></l-tile-layer>
+        <l-tile-layer :url="$store.getters.OSMURL"></l-tile-layer>
         <l-marker :lat-lng="koop.location"/>
       </l-map>
 
@@ -33,7 +33,7 @@
 
         data() {
             return {
-                url        : "http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+                // url        : "http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
                 // url        : 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
                 userAddress: null
             }
