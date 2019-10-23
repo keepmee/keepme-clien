@@ -130,9 +130,7 @@
                     },
                     (error) => {
                         this.resetErrors()
-                        return (error && error.response)
-                            ? this.helpers.setFeedback("error", error.response.data.error, this)
-                            : null
+                        return this.helpers.setFeedback("error", (error && error.response) ? error.response.data.data.error || null : null, this)
                     }
                 )
 

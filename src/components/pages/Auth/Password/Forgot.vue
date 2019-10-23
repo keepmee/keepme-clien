@@ -55,7 +55,7 @@
             send() {
                 this.api.post('/password/forgot', this.user).then(
                     () => this.helpers.setFeedback("success", "Veuillez suivre les instructions reçues par mail. (Vérifiez vos spams)", this),
-                    (error) => (error && error.response) ? this.helpers.setFeedback("error", error.response.data.data.error || null, this) : null
+                    (error) => this.helpers.setFeedback("error", (error && error.response && error.response.data.data) ? error.response.data.data.error || null : null, this)
                 )
             }
 
