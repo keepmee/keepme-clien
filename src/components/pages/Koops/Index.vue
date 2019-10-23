@@ -166,9 +166,7 @@
                     lat: parseFloat(coordinates.lat),
                     lng: parseFloat(coordinates.lng)
                 });
-                // let tmp = await setAllKoopDistance(this.koops, this.geolocation.center)
                 this.koops = await setAllKoopDistance(this.geolocation.center, this.geolocation.radius)
-                // console.log(tmp)
                 this.$forceUpdate()
             },
 

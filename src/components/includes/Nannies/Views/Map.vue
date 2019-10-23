@@ -137,6 +137,7 @@
                 this.$localStorage.set('user', this.helpers.clone(user))
                 this.$forceUpdate()
                 setTimeout(() => {
+                    this.$emit('address-updated')
                     this.setUserAddress()
                 }, 1000)
             },
@@ -162,7 +163,7 @@
 
             async setUserAddress() {
                 this.helpers.loading()
-                let user = await this.$store.getters.user.storage
+                let user = await this.helpers.getUserStorage()
                 this.center = user && user.address ? {
                     lat: user.address.latitude,
                     lng: user.address.longitude

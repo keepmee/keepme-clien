@@ -4,7 +4,8 @@
 
     <div class="col-12 col-md-6 col-lg-4 px-0 nanny-view-map mr-auto">
       <!-- MAP -->
-      <nanny-view-map :nannies="nannies" class="h-100 vue-map-container" @nanny-selected="onNannySelected"/>
+      <nanny-view-map :nannies="nannies" class="h-100 vue-map-container" @nanny-selected="onNannySelected"
+                      @address-updated="onAddressUpdated"/>
 
       <!-- CLICK TO VIEW -->
       <div class="row w-100 click-to-view d-md-none d-flex justify-content-center align-items-center smooth-scroll">
@@ -79,9 +80,14 @@
 
         methods: {
 
+            onAddressUpdated() {
+                this.$forceUpdate()
+            },
+
             isVisibleNanny(nanny) {
+                let user = this.helpers.getUserStorage(), userAddress = user ? user.address : null
                 return (nanny.distance && nanny.distance < 10)
-                    || (nanny.user && nanny.user.address && this.$store.getters.user.storage && this.$store.getters.user.storage.address && getDistanceBetween(parseFloat(this.$store.getters.user.storage.address.latitude), parseFloat(this.$store.getters.user.storage.address.longitude), parseFloat(nanny.user.address.latitude), parseFloat(nanny.user.address.longitude), 'm') < 10000)
+                    || (nanny.user && nanny.user.address && userAddress && getDistanceBetween(parseFloat(userAddress.latitude), parseFloat(userAddress.longitude), parseFloat(nanny.user.address.latitude), parseFloat(nanny.user.address.longitude), 'm') < 10000)
                 /*koop.nanny_id !== null ? false : all === false && geolocation.radius !== null
                     ? getDistanceBetween(geolocation.center.lat, geolocation.center.lng, koop.location.lat, koop.location.lng, 'm') < geolocation.radius : true*/
             },
