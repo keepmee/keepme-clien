@@ -3,7 +3,7 @@
 
 
     <!-- SECTION TITLE -->
-    <section-title title="<span class='color-1'>service</span> déstiné aux"/>
+    <section-title title="<span class='color-1'>inscrivez vous</span> en tant que"/>
 
     <!-- SECTION CONTENT-->
     <div class="container">

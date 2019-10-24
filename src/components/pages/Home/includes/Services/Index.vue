@@ -22,6 +22,12 @@
       </div>
     </div>
 
+    <blockquote class="groucho text-center w-100 sanchez grey-text font-italic">
+      <span class="mx-2">&#10077;</span>
+      Avec Keepme, restez maître de votre budget
+      <span class="mx-2">&#10078;</span>
+    </blockquote>
+
   </div>
 </template>
 
@@ -80,6 +86,12 @@
   .service-icon {
     height: 100px;
     width: 100px;
+  }
+
+  .groucho {
+    position: relative;
+    font-size: 25px;
+    line-height: 1.5em;
   }
 
 </style>

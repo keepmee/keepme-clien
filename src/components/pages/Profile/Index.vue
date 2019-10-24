@@ -50,8 +50,9 @@
                       v-html="phone(user.phone)"></span></a>
                   </item>
                   <item icon="far fa-mobile" v-else><span v-html="phone(user.phone)"></span></item>
-                  <item class="text-center border-bottom-0"><i class="far fa-edit fa-3x color-1 cursor-pointer"
-                                                               @click="chatWith"></i></item>
+                  <item class="border-bottom-0">
+                    Envoyer un message <i class="far fa-edit fa-1x5 color-1 cursor-pointer ml-2" @click="chatWith"></i>
+                  </item>
                 </ul>
               </div>
 
