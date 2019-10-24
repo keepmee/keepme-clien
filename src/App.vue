@@ -10,8 +10,10 @@
       </template>
     </vue-navbar>
 
-    <router-view v-if="loaded" class="main-container" :key="`${$route.fullPath}-${naviteration}`"
-                 :class="{'padding': isVisibleNavbar() && $route.name !== 'account.profile.notifications'}"/>
+    <div class="main-container">
+      <router-view v-if="loaded" :key="`${$route.fullPath}-${naviteration}`" class="main-container"
+                   :class="{'padding': isVisibleNavbar() && $route.name !== 'account.profile.notifications'}"/>
+    </div>
 
     <notifications v-show="show.notifications" :show="show.notifications" @navigated="toggleNotifications(false)"/>
 
@@ -25,7 +27,6 @@
     <modal-create-koop @created="naviteration++"/>
 
     <x-footer v-if="isVisibleFooter()"/>
-
 
   </div>
 </template>
