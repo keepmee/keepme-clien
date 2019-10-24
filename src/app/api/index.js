@@ -61,13 +61,16 @@ export default (function () {
   self.get = (url, load = true) => {
     return new Promise((resolve, reject) => {
 
-        helpers.loading();
+        if (load !== 0)
+          helpers.loading();
 
         http.get(`${server}${url}`).then((r) => {
-          helpers.loading(!load);
+          if (load !== 0)
+            helpers.loading(!load);
           resolve(r)
         }, (e) => {
-          helpers.loading(!load);
+          if (load !== 0)
+            helpers.loading(!load);
           errorFeedback(e, url);
           reject(e)
         })
@@ -91,13 +94,16 @@ export default (function () {
 
     return new Promise((resolve, reject) => {
 
-      helpers.loading();
+      if (load !== 0)
+        helpers.loading();
 
       http(config).then((r) => {
-        helpers.loading(!load);
+        if (load !== 0)
+          helpers.loading(!load);
         resolve(r)
       }, (e) => {
-        helpers.loading(!load);
+        if (load !== 0)
+          helpers.loading(!load);
         errorFeedback(e, url);
         reject(e)
       })
