@@ -24,7 +24,8 @@ import AccountProfileIndex          from '../../components/pages/Account/Profile
 import AccountProfileNotifications  from '../../components/pages/Account/Profile/Notifications'
 import AccountSettingsDiplomasIndex from '../../components/pages/Account/Settings/pages/Diplomas/Index'
 import ProfileIndex                 from '../../components/pages/Profile/Index'
-import NannieIndex                  from '../../components/pages/Nannies/Index'
+import NannyIndex                   from '../../components/pages/Nannies/Index'
+import ChatIndex                    from '../../components/pages/Chat/Index'
 
 import Login          from '../../components/pages/Auth/Login'
 import Register       from '../../components/pages/Auth/Register/Index'
@@ -60,7 +61,9 @@ Route.group({ beforeEnter: Middleware.Auth }, () => {
 
   Route.view('/profile/:separator/:name', ProfileIndex).name('profile.index');
 
-  Route.view('/nannies', NannieIndex).name('nannies.index');
+  Route.view('/nannies', NannyIndex).name('nannies.index');
+  Route.view('/chat', ChatIndex).name('chat.index');
+  Route.view('/chat/:index', ChatIndex).name('chat.index.params');
 
   Route.view('/logout', Logout).name('logout')
 });

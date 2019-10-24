@@ -6,6 +6,7 @@ import store                from "../../store";
 const routes = {
   koops   : { index: findIndexRouteName('koops'), create: 'koops.create', nannies: 'nannies.index' },
   logout  : 'logout',
+  chat    : 'chat.index',
   profile : { index: findIndexRouteName('profile') },
   settings: {
     index   : 'account.settings.index',
@@ -48,4 +49,5 @@ export default [
     show    : true
   },
   { title: 'Notifications', icon: 'far fa-bells', action: 'toggleNotifications', show: true },
+  { title: 'Messagerie', icon: 'far fa-comments-alt', name: routes.chat, show: true },
 ];
