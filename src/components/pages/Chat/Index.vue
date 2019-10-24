@@ -4,7 +4,7 @@
       <div class="row">
 
         <div class="col conversations-container border-right border-very-strong border-color-1">
-          <ul v-if="!conversations && conversations.length > 0">
+          <ul v-if="conversations && conversations.length > 0">
             <li v-for="(conversation, index) in conversations" class="py-3 px-2 border-bottom border-color-1"
                 @click="onConversationClick(conversation, index)" v-if="conversation.person">
               {{ conversation.person.firstname | capitalize }} {{ conversation.person.lastname | capitalize }}
