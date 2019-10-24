@@ -50,6 +50,8 @@
                       v-html="phone(user.phone)"></span></a>
                   </item>
                   <item icon="far fa-mobile" v-else><span v-html="phone(user.phone)"></span></item>
+                  <item class="text-center border-bottom-0"><i class="far fa-edit fa-3x color-1 cursor-pointer"
+                                                               @click="chatWith"></i></item>
                 </ul>
               </div>
 
@@ -162,6 +164,14 @@
                 this.api.get(`/koops/${this.user.firstname || ''}.${this.user.lastname || ''}`).then(
                     (response) => this.koops = setAllKoopImage(response.data.data),
                 )
+            },
+
+            chatWith() {
+                let userId = this.user.id, myId = this.$store.getters.user.storage.id
+                this.$router.push({
+                    name  : 'chat.index.params',
+                    params: { index: btoa(`${Math.min(userId, myId)}-${Math.max(userId, myId)}`) }
+                })
             },
 
             async run() {
