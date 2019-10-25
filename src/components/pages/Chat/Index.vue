@@ -118,8 +118,9 @@
                 this.current.conversation = conversation
                 this.current.index = index
                 this.getPadding()
-                if (interval === null)
-                    this.startInterval()
+                // if (interval === null)
+                //     this.startInterval()
+                this.$router.push({ name: 'chat.index.params', params: { index } })
             },
 
             send() {
@@ -144,9 +145,10 @@
             loadParams() {
                 if (this.$route.name === 'chat.index.params') {
                     this.current.index = this.$route.params.index
+                    console.log(this.conversations.filter((conversation) => conversation.id === this.current.index)[0], this.current.index)
                     if (!this.conversations.filter((conversation) => conversation.id === this.current.index)[0])
                         this.conversations[this.current.index] = { id: this.current.index, messages: [] }
-                    this.current.conversation = this.conversations[this.current.index]
+                    this.current.conversation = this.conversations.filter((conversation) => conversation.id === this.current.index)[0] || this.conversations[this.current.index]
                     return true
                 }
                 return false
