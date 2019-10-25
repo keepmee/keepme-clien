@@ -63,7 +63,8 @@
                 messages     : [],
                 conversations: [],
                 current      : { conversation: null, index: null },
-                padding      : 0
+                padding      : 0,
+                loading      : false,
             }
         },
 
@@ -83,6 +84,9 @@
 
             fetchMessages() {
                 return new Promise((resolve, reject) => {
+                    if (this.loading)
+                        return resolve(true)
+                    this.loading = true
                     this.api.get('/messages', 0).then((response) => {
                         this.messages = response.data.data.messages
                         this.conversations = response.data.data.conversations
@@ -90,13 +94,13 @@
                         if (this.current.index)
                             this.current.conversation = this.conversations.filter((conversation) => conversation.id === this.current.index)[0]
                     }).then(
-                        (response) => resolve(true),
+                        (response) => resolve(this.loading = false),
                         (error) => {
                             // if (error.status === 429) {
                             clearInterval(interval)
                             interval = null
                             // }
-                            return reject(error)
+                            return reject(this.loading = false)
                         }
                     )
                 })
