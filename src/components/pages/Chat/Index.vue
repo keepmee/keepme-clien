@@ -90,7 +90,6 @@
                     this.api.get('/messages', 0).then((response) => {
                         this.messages = response.data.data.messages
                         this.conversations = response.data.data.conversations
-                        console.log(this.current)
                         if (this.current.index)
                             this.current.conversation = this.conversations.filter((conversation) => conversation.id === this.current.index)[0]
                     }).then(
