@@ -6,7 +6,7 @@
         <div class="col conversations-container border-right border-very-strong border-color-1">
           <ul v-if="conversations && conversations.length > 0">
             <li v-for="(conversation, index) in conversations" class="py-3 px-2 border-bottom border-color-1"
-                @click="onConversationClick(conversation, index)" v-if="conversation.person">
+                @click="onConversationClick(conversation, conversation.id)" v-if="conversation.person">
               {{ conversation.person.firstname | capitalize }} {{ conversation.person.lastname | capitalize }}
               <span class="float-right">{{ helpers.moment(conversation.messages[conversation.messages.length - 1].created_at).format('LT') }}</span>
             </li>
@@ -86,14 +86,15 @@
                     this.api.get('/messages', 0).then((response) => {
                         this.messages = response.data.data.messages
                         this.conversations = response.data.data.conversations
+                        console.log(this.current)
                         if (this.current.index)
-                            this.current.conversation = this.conversations[this.current.index]
+                            this.current.conversation = this.conversations.filter((conversation) => conversation.id === this.current.index)[0]
                     }).then(
                         (response) => resolve(true),
                         (error) => {
                             // if (error.status === 429) {
-                                clearInterval(interval)
-                                interval = null
+                            clearInterval(interval)
+                            interval = null
                             // }
                             return reject(error)
                         }
@@ -143,8 +144,8 @@
             loadParams() {
                 if (this.$route.name === 'chat.index.params') {
                     this.current.index = this.$route.params.index
-                    if (!this.conversations[this.current.index])
-                        this.conversations[this.current.index] = { messages: [] }
+                    if (!this.conversations.filter((conversation) => conversation.id === this.current.index)[0])
+                        this.conversations[this.current.index] = { id: this.current.index, messages: [] }
                     this.current.conversation = this.conversations[this.current.index]
                     return true
                 }
